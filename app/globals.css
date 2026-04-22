@@ -1,26 +1,397 @@
 @import "tailwindcss";
-
+/* ============================= */
+/* ROOT DESIGN SYSTEM */
+/* ============================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background: #f8f9ff;
+  --surface: #ffffff;
+
+  /* Text */
+  --text-primary: #0b1c30;
+  --text-secondary: #5f6b7a;
+
+  /* Brand */
+  --primary: #0058be;
+  --primary-hover: #004a9f;
+
+  /* Borders */
+  --border: #e5e9f2;
+
+  /* States */
+  --success: #16a34a;
+  --danger: #dc2626;
+
+  /* UI */
+  --radius: 12px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================= */
+/* BASE STYLES */
+/* ============================= */
+/* ============================= */
+/* HEADINGS CONTROL */
+/* ============================= */
+
+h1, h2, h3 {
+  color: var(--text-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ============================= */
+/* BODY TEXT DEFAULT */
+/* ============================= */
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+}
+/* ============================= */
+/* TEXT UTILITIES (LOCK SYSTEM) */
+/* ============================= */
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* ============================= */
+/* TYPOGRAPHY */
+/* ============================= */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* ============================= */
+/* LAYOUT UTILITIES */
+/* ============================= */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================= */
+/* NAVBAR SYSTEM */
+/* ============================= */
+
+.navbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.navbar-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.navbar-logo {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navbar-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: 0.2s ease;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.navbar-link-active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+/* ============================= */
+/* FOOTER SYSTEM */
+/* ============================= */
+
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.footer-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* ============================= */
+/* TOOLS / SIDEBAR */
+/* ============================= */
+
+.top-rank {
+  color: var(--text-secondary);
+  font-weight: 700;
+  opacity: 0.4;
+}
+
+/* ============================= */
+/* CARD SYSTEM */
+/* ============================= */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Clickable cards (affiliate / outbound as <a class="card">) */
+a.card {
+  cursor: pointer;
+}
+
+a.card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 88, 190, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 10px 28px rgba(0, 88, 190, 0.35);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 500;
+  background: white;
+  transition: 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--background);
+}
+
+/* ============================= */
+/* INPUTS */
+/* ============================= */
+.input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.15);
+}
+
+/* ============================= */
+/* TABLE (COMPARISON) */
+/* ============================= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 0.75rem;
+  background: #f1f5f9;
+}
+
+.table td {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================= */
+/* BADGES */
+/* ============================= */
+.badge {
+  background: rgba(0, 88, 190, 0.1);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ============================= */
+/* PROS / CONS */
+/* ============================= */
+.pros {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.cons {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+/* ============================= */
+/* LINKS */
+/* ============================= */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ============================= */
+/* CTA SECTION (LOCKED STYLE) */
+/* ============================= */
+
+.cta-section {
+  background: linear-gradient(135deg, #0b1c30, #0f2a44);
+  color: white;
+  border-radius: 16px;
+  /* Spacing comes from utilities per page (py-*, px-*) */
+}
+
+.cta-title {
+  color: white;
+  font-weight: 600;
+}
+
+.cta-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cta-subtext {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cta-section input[type="email"] {
+  min-height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.cta-section input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cta-section input[type="email"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.35);
 }
