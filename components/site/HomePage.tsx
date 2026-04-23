@@ -1,5 +1,8 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AffiliateAnchor } from "@/components/AffiliateAnchor";
+import { tools, type ToolId } from "@/lib/tools";
 import { StubForm } from "./StubForm";
 
 const IMG_HERO =
@@ -48,6 +51,77 @@ function IconClock() {
   );
 }
 
+function StarGlyph({ className, style }: { className?: string; style?: CSSProperties }) {
+  return (
+    <svg className={className} style={style} viewBox="0 0 20 20" aria-hidden>
+      <path
+        fill="currentColor"
+        d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.51L10 13.9l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.5z"
+      />
+    </svg>
+  );
+}
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="mb-4 flex items-center gap-2">
+      <div className="flex gap-0.5 text-[var(--primary)]">
+        {[0, 1, 2, 3, 4].map((i) => {
+          const idx = i + 1;
+          let opacity = 0.22;
+          if (rating >= idx) opacity = 1;
+          else if (rating > idx - 1) opacity = Math.max(0.25, rating - (idx - 1));
+          return <StarGlyph key={i} className="h-4 w-4 shrink-0" style={{ opacity }} />;
+        })}
+      </div>
+      <span className="text-sm font-semibold text-primary">{rating.toFixed(1)}</span>
+    </div>
+  );
+}
+
+const HOME_TOP_PICKS: {
+  tool: ToolId;
+  pos: string;
+  description: string;
+  rating: number;
+  bestFor: string;
+  trust: string;
+  cta: string;
+  featured: boolean;
+}[] = [
+  {
+    tool: "jasper",
+    pos: "pick-1-jasper",
+    description:
+      "The ultimate AI writing assistant for marketing and enterprise teams.",
+    rating: 4.8,
+    bestFor: "Content marketing",
+    trust: "Used by 50,000+ teams",
+    cta: "Start writing →",
+    featured: true,
+  },
+  {
+    tool: "notion",
+    pos: "pick-2-notion",
+    description: "An all-in-one workspace for notes, docs, and projects.",
+    rating: 4.9,
+    bestFor: "Team productivity",
+    trust: "Free plan available",
+    cta: "View pricing →",
+    featured: false,
+  },
+  {
+    tool: "supabase",
+    pos: "pick-3-supabase",
+    description: "The open source Firebase alternative built for developers.",
+    rating: 4.7,
+    bestFor: "Backend & scaling",
+    trust: "No credit card required",
+    cta: "Get started →",
+    featured: false,
+  },
+];
+
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary">
@@ -68,13 +142,13 @@ export function HomePage() {
             <div className="flex flex-wrap justify-center gap-4 md:justify-start">
               <Link
                 href="/posts/pm-tools"
-                className="btn-primary inline-flex items-center justify-center no-underline transition hover:scale-[1.02] hover:no-underline active:scale-[0.98]"
+                className="btn-primary inline-flex items-center justify-center no-underline transition hover:scale-[1.02] active:scale-[0.98]"
               >
                 Explore best picks
               </Link>
               <Link
                 href="/posts"
-                className="btn-secondary inline-flex items-center justify-center no-underline shadow-sm transition hover:no-underline"
+                className="btn-secondary inline-flex items-center justify-center no-underline shadow-sm transition"
               >
                 Latest reviews
               </Link>
@@ -93,6 +167,80 @@ export function HomePage() {
           </div>
         </section>
 
+        <section className="py-16">
+          <div className="mb-8">
+            <h2 className="text-3xl font-semibold tracking-tight text-primary md:text-[2rem]">
+              Top picks right now
+            </h2>
+            <p className="mt-1 max-w-2xl text-lg text-secondary">
+              Hand-picked tools we recommend based on performance and value.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-stretch">
+            {HOME_TOP_PICKS.map((pick) => {
+              const meta = tools[pick.tool];
+              const initial = meta.name.charAt(0);
+              const isFeatured = pick.featured;
+              return (
+                <AffiliateAnchor
+                  key={pick.tool}
+                  tool={pick.tool}
+                  source="home-top-picks"
+                  pos={pick.pos}
+                  title="Opens in a new tab"
+                  className={
+                    isFeatured
+                      ? "group relative z-[1] flex h-full min-h-0 scale-[1.02] flex-col rounded-[var(--radius)] border-2 border-[var(--primary)] bg-[var(--surface)] p-6 shadow-[0_14px_40px_rgba(0,88,190,0.2)] no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(0,88,190,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] max-md:scale-100"
+                      : "group flex h-full min-h-0 flex-col rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+                  }
+                >
+                  <div className="flex min-h-0 flex-1 flex-col md:min-h-[300px]">
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                      <div
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[rgba(0,88,190,0.1)] text-sm font-bold text-[var(--primary)]"
+                        aria-hidden
+                      >
+                        {initial}
+                      </div>
+                      {isFeatured ? (
+                        <span className="badge shrink-0 text-[10px] font-bold uppercase tracking-wider">
+                          #1 Pick
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <h3 className="mb-2 text-xl font-semibold tracking-tight text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
+                      {meta.name}
+                    </h3>
+                    <p className="cursor-default text-sm leading-relaxed text-secondary line-clamp-2">
+                      {pick.description}
+                    </p>
+
+                    <div className="cursor-default">
+                      <StarRating rating={pick.rating} />
+                    </div>
+
+                    <p className="mb-0 cursor-default text-xs italic text-secondary">
+                      Best for: {pick.bestFor}
+                    </p>
+
+                    <div className="min-h-[1px] flex-1" aria-hidden />
+
+                    <p className="mb-4 cursor-default text-xs text-[var(--success)]">
+                      {pick.trust}
+                    </p>
+
+                    <span className="btn-primary inline-flex w-full items-center justify-center py-3 text-center text-sm font-semibold no-underline">
+                      {pick.cta}
+                    </span>
+                  </div>
+                </AffiliateAnchor>
+              );
+            })}
+          </div>
+        </section>
+
         <section className="mb-16 md:mb-24">
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
@@ -105,7 +253,7 @@ export function HomePage() {
             </div>
             <Link
               href="/posts"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--primary)] no-underline hover:underline"
+              className="link-accent inline-flex items-center gap-1 text-sm font-semibold no-underline"
             >
               View all
               <IconArrow />
@@ -113,12 +261,12 @@ export function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-            <div className="card group relative !h-[380px] !p-0 overflow-hidden md:col-span-8 md:!h-[450px]">
+            <div className="card relative !h-[380px] !p-0 overflow-hidden md:col-span-8 md:!h-[450px]">
               <Image
                 src={IMG_BENTO_LARGE}
                 alt="AI tools feature"
                 fill
-                className="object-cover transition duration-700 group-hover:scale-105"
+                className="object-cover"
                 sizes="(max-width: 768px) 100vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
@@ -135,7 +283,7 @@ export function HomePage() {
                 </p>
                 <Link
                   href="/posts"
-                  className="btn-secondary inline-flex items-center gap-2 no-underline transition group-hover:border-transparent group-hover:bg-[var(--primary)] group-hover:text-[var(--surface)] hover:no-underline"
+                  className="group btn-secondary inline-flex items-center gap-2 no-underline transition hover:border-transparent hover:bg-[var(--primary)] hover:text-[var(--surface)]"
                 >
                   Read guide
                   <span className="inline-block transition group-hover:translate-x-0.5">
@@ -176,79 +324,79 @@ export function HomePage() {
               <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[var(--primary)]/10 blur-3xl" />
             </div>
 
-            <article className="card group flex flex-col md:col-span-4">
+            <article className="card flex flex-col md:col-span-4">
               <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
                 <Image
                   src={IMG_CARD_FINANCE}
                   alt="Finance apps"
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
                 Finance
               </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary transition group-hover:text-[var(--primary)] md:text-xl">
+              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
                 Best Credit Builder Apps
               </h3>
-              <p className="mb-4 flex-grow text-sm leading-relaxed text-secondary">
+              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
                 Reliable platforms to help you build credit with clear reporting
                 and low fees.
               </p>
-              <div className="flex items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
+              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
                 <IconClock />
                 6 min read
               </div>
             </article>
 
-            <article className="card group flex flex-col md:col-span-4">
+            <article className="card flex flex-col md:col-span-4">
               <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
                 <Image
                   src={IMG_CARD_DEV}
                   alt="Developer tools"
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
                 Development
               </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary transition group-hover:text-[var(--primary)] md:text-xl">
+              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
                 Top 10 IDE Extensions for 2026
               </h3>
-              <p className="mb-4 flex-grow text-sm leading-relaxed text-secondary">
+              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
                 Essential plugins to turn your editor into a high-speed shipping
                 environment.
               </p>
-              <div className="flex items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
+              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
                 <IconClock />
                 8 min read
               </div>
             </article>
 
-            <article className="card group flex flex-col md:col-span-4">
+            <article className="card flex flex-col md:col-span-4">
               <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
                 <Image
                   src={IMG_CARD_TEAM}
                   alt="Team collaboration"
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
                 Productivity
               </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary transition group-hover:text-[var(--primary)] md:text-xl">
+              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
                 Remote Collaboration Survival Kit
               </h3>
-              <p className="mb-4 flex-grow text-sm leading-relaxed text-secondary">
+              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
                 The definitive list of software your remote team needs to stay
                 connected and efficient.
               </p>
-              <div className="flex items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
+              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
                 <IconClock />
                 12 min read
               </div>
@@ -256,7 +404,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="mb-16 flex flex-wrap items-center justify-center gap-10 border-y border-[var(--border)] py-10 text-secondary opacity-90 transition hover:opacity-100 md:mb-24 md:gap-16 md:py-12">
+        <section className="mb-16 flex flex-wrap items-center justify-center gap-10 border-y border-[var(--border)] py-10 text-secondary opacity-95 md:mb-24 md:gap-16 md:py-12">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-primary md:text-sm">
             <svg
               className="h-5 w-5 text-[var(--primary)]"

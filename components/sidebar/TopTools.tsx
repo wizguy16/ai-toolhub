@@ -75,13 +75,15 @@ export function TopTools() {
                 source="sidebar-top-tools"
                 pos={`row-${index + 1}`}
                 title="Opens in a new tab"
-                className="block rounded-xl no-underline outline-none ring-offset-2 transition hover:bg-[var(--background)] focus-visible:ring-2 focus-visible:ring-[var(--primary)] hover:no-underline"
+                className="group block rounded-xl no-underline outline-none ring-offset-2 transition hover:bg-[var(--background)] focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1 space-y-3">
                     <div>
-                      <p className="font-semibold text-primary">{tool.name}</p>
-                      <p className="mt-1 text-sm leading-snug text-secondary">
+                      <p className="font-semibold text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
+                        {tool.name}
+                      </p>
+                      <p className="mt-1 cursor-default text-sm leading-snug text-secondary">
                         {tool.label}
                       </p>
                     </div>
@@ -102,7 +104,7 @@ export function TopTools() {
               <div className="space-y-3">
                 <div>
                   <p className="font-semibold text-primary">{tool.name}</p>
-                  <p className="mt-1 text-sm leading-snug text-secondary">
+                  <p className="mt-1 cursor-default text-sm leading-snug text-secondary">
                     {tool.label}
                   </p>
                 </div>

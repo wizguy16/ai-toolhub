@@ -1,5 +1,6 @@
 /** Known `source=` values only — keeps analytics and partner UTMs consistent. */
 export const CLICK_SOURCES = [
+  "home-top-picks",
   "tools-browse",
   "tools-top-month",
   "sidebar-top-tools",

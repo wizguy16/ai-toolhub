@@ -118,6 +118,14 @@ p {
   font-weight: 700;
   color: var(--text-primary);
   font-size: 1.25rem;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a.navbar-logo:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+  opacity: 0.88;
 }
 
 .navbar-links {
@@ -130,13 +138,14 @@ p {
   color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.875rem;
-  transition: 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
   text-decoration: none;
 }
 
 .navbar-link:hover {
   color: var(--text-primary);
   text-decoration: none;
+  opacity: 0.92;
 }
 
 .navbar-link-active {
@@ -191,11 +200,13 @@ p {
   color: var(--text-secondary);
   font-size: 0.9rem;
   text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .footer-link:hover {
   color: var(--text-primary);
   text-decoration: none;
+  opacity: 0.9;
 }
 
 /* ============================= */
@@ -340,15 +351,49 @@ a.card:focus-visible {
 }
 
 /* ============================= */
-/* LINKS */
+/* LINKS — no underlines; hover is opt-in per component */
 /* ============================= */
 a {
   color: var(--primary);
   text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a.navbar-logo {
+  color: var(--text-primary);
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+}
+
+/* Button-styled anchors: never pick up generic link affordances */
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-secondary,
+a.btn-secondary:hover {
+  text-decoration: none;
+}
+
+/* Quiet in-card text links (optional utility) */
+a.link-quiet {
+  color: var(--text-secondary);
+}
+
+a.link-quiet:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* Standalone text link: subtle color shift, no underline */
+a.link-accent {
+  text-decoration: none;
+}
+
+a.link-accent:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+  opacity: 0.92;
 }
 
 /* ============================= */

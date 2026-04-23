@@ -28,16 +28,16 @@ export default function PostsIndexPage() {
                   href={`/posts/${featured.slug}`}
                   className="card group block no-underline transition hover:shadow-lg"
                 >
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-secondary">
+                  <p className="mb-2 cursor-default text-xs font-semibold uppercase tracking-wide text-secondary">
                     Featured
                   </p>
-                  <h2 className="text-xl font-bold tracking-tight text-primary md:text-2xl">
+                  <h2 className="text-xl font-bold tracking-tight text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92] md:text-2xl">
                     {featured.title}
                   </h2>
-                  <p className="mt-3 text-base leading-relaxed text-secondary">
+                  <p className="mt-3 cursor-default text-base leading-relaxed text-secondary">
                     {featured.excerpt}
                   </p>
-                  <span className="mt-6 inline-flex items-center text-sm font-semibold text-primary">
+                  <span className="mt-6 inline-flex cursor-default items-center text-sm font-semibold text-[var(--primary)]">
                     Read article →
                   </span>
                 </Link>
@@ -50,13 +50,13 @@ export default function PostsIndexPage() {
                         href={`/posts/${item.slug}`}
                         className="card group flex h-full flex-col no-underline transition hover:shadow-md"
                       >
-                        <h2 className="text-lg font-semibold text-primary">
+                        <h2 className="text-lg font-semibold text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
                           {item.title}
                         </h2>
-                        <p className="mt-2 flex-1 text-sm leading-relaxed text-secondary">
+                        <p className="mt-2 flex-1 cursor-default text-sm leading-relaxed text-secondary">
                           {item.excerpt}
                         </p>
-                        <span className="mt-4 text-sm font-semibold text-primary">
+                        <span className="mt-4 cursor-default text-sm font-semibold text-[var(--primary)]">
                           Read article →
                         </span>
                       </Link>
@@ -69,10 +69,7 @@ export default function PostsIndexPage() {
             )}
 
             <div>
-              <Link
-                href="/"
-                className="text-sm font-semibold text-secondary no-underline underline-offset-4 hover:underline"
-              >
+              <Link href="/" className="link-quiet text-sm font-semibold no-underline">
                 ← Back to home
               </Link>
             </div>

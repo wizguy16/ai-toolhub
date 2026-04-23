@@ -17,7 +17,7 @@ type AnchorProps = Base &
 export type CTAButtonProps = ButtonProps | AnchorProps;
 
 const base =
-  "inline-flex items-center justify-center text-sm font-semibold no-underline transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 hover:no-underline";
+  "inline-flex items-center justify-center text-sm font-semibold no-underline transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 function variantClasses(variant: Variant) {
   switch (variant) {

@@ -92,7 +92,7 @@ export function BestDeals() {
                   ) : null}
                   {deal.name}
                 </p>
-                <p className="mt-1 text-sm text-secondary">{deal.price}</p>
+                <p className="mt-1 cursor-default text-sm text-secondary">{deal.price}</p>
               </div>
               <DealCta deal={deal} index={index} />
             </div>

@@ -6,7 +6,7 @@ import { ExternalLinkGlyph } from "@/components/icons/ExternalLinkGlyph";
 import { useAffiliateLinkProps } from "@/lib/useAffiliateLinkProps";
 
 const base =
-  "inline-flex cursor-pointer items-center justify-center text-sm font-semibold no-underline transition active:scale-[0.98] hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]";
+  "inline-flex cursor-pointer items-center justify-center text-sm font-semibold no-underline transition active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]";
 
 type Variant = "primary" | "outline";
 

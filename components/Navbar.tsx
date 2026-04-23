@@ -48,16 +48,13 @@ export default function Navbar() {
           </NavLink>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="ml-auto flex items-center">
           <input
             type="search"
             placeholder="Search tools..."
             aria-label="Search tools"
             className="input hidden max-w-[220px] md:block"
           />
-          <button type="button" className="btn-primary">
-            Subscribe
-          </button>
         </div>
       </div>
     </header>

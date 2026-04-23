@@ -101,7 +101,7 @@ export function ToolCard({ index, review }: ToolCardProps) {
             ) : null}
           </div>
 
-          <p className="mb-6 text-base leading-relaxed text-secondary">
+          <p className="mb-6 cursor-default text-base leading-relaxed text-secondary">
             {description}
           </p>
 
@@ -123,7 +123,7 @@ export function ToolCard({ index, review }: ToolCardProps) {
             ) : (
               <Link
                 href="/tools"
-                className="btn-primary inline-flex flex-1 items-center justify-center !py-3 text-center text-sm font-semibold no-underline hover:no-underline"
+                className="btn-primary inline-flex flex-1 items-center justify-center !py-3 text-center text-sm font-semibold no-underline"
               >
                 {cta}
               </Link>

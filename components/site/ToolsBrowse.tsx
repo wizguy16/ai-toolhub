@@ -371,7 +371,7 @@ export function ToolsBrowse() {
                   source="tools-browse"
                   pos={`card-${tool.id}`}
                   title="Opens in a new tab"
-                  className="card flex h-full flex-col no-underline transition-shadow hover:shadow-md hover:no-underline"
+                  className="card group flex h-full flex-col no-underline transition-shadow hover:shadow-md"
                 >
                   <div className="flex flex-1 flex-col space-y-2">
                     <div className="flex items-start justify-between gap-3">
@@ -380,13 +380,13 @@ export function ToolsBrowse() {
                       </div>
                       <span className="badge shrink-0">{tool.category}</span>
                     </div>
-                    <h2 className="text-xl font-semibold leading-snug text-primary">
+                    <h2 className="text-xl font-semibold leading-snug text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
                       {tool.name}
                     </h2>
-                    <p className="line-clamp-2 text-sm leading-relaxed text-secondary">
+                    <p className="line-clamp-2 cursor-default text-sm leading-relaxed text-secondary">
                       {tool.description}
                     </p>
-                    <div className="flex items-center gap-2 pt-1">
+                    <div className="flex cursor-default items-center gap-2 pt-1">
                       <RatingStars value={tool.rating} />
                       <span className="text-xs font-semibold tabular-nums text-primary">
                         {tool.rating.toFixed(1)}
@@ -394,7 +394,7 @@ export function ToolsBrowse() {
                     </div>
                   </div>
                   <div className="mt-3 border-t border-[var(--border)] pt-3">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+                    <p className="cursor-default text-xs font-semibold uppercase tracking-wide text-secondary">
                       Best for: {tool.bestFor}
                     </p>
                     <span className="btn-primary mt-3 inline-flex w-full cursor-pointer items-center justify-center gap-1.5 py-2.5 text-center text-sm font-semibold">
@@ -426,14 +426,16 @@ export function ToolsBrowse() {
                     source="tools-top-month"
                     pos={`rank-${row.rank}`}
                     title="Opens in a new tab"
-                    className="flex cursor-pointer items-center gap-3 rounded-lg p-2 no-underline transition-colors hover:bg-[var(--background)] hover:no-underline"
+                    className="group flex cursor-pointer items-center gap-3 rounded-lg p-2 no-underline transition-colors hover:bg-[var(--background)]"
                   >
                     <div className="top-rank min-w-[2.25rem] text-2xl tabular-nums md:text-3xl">
                       {row.rank}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-primary">{row.name}</p>
-                      <p className="text-xs text-secondary">{row.label}</p>
+                      <p className="text-sm font-semibold text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
+                        {row.name}
+                      </p>
+                      <p className="cursor-default text-xs text-secondary">{row.label}</p>
                     </div>
                   </AffiliateAnchor>
                 ))}
@@ -450,13 +452,15 @@ export function ToolsBrowse() {
                   <Link
                     key={deal.name}
                     href={deal.href}
-                    className="flex items-center justify-between gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3 no-underline transition-shadow hover:shadow-sm hover:no-underline"
+                    className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3 no-underline transition-shadow hover:shadow-sm"
                   >
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-wide text-secondary">
+                      <p className="cursor-default text-xs font-bold uppercase tracking-wide text-secondary">
                         {deal.discount}
                       </p>
-                      <p className="text-sm font-semibold text-primary">{deal.name}</p>
+                      <p className="text-sm font-semibold text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
+                        {deal.name}
+                      </p>
                     </div>
                     <IconArrowForward className="h-5 w-5 shrink-0 text-secondary" />
                   </Link>
