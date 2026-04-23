@@ -6,17 +6,11 @@ import { tools, type ToolId } from "@/lib/tools";
 import { HeroAiRecommend } from "./HeroAiRecommend";
 import { StubForm } from "./StubForm";
 
-const IMG_BENTO_LARGE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuCtuk1I33S934asmYgrYbUSZBztYvW25ST5-ygJNbo-d_7ZqOgQFZ4lRPvc2DVkSGdJvMQPPlsQAd_fLvJo8GSifey9XJvVLIwNSGF_sFVwMyOsYzzc3xtD39gz5KvazERymvHQznQew3czY9o7ID1LoHuFQztHw0Nhg0tpAT9WlhF1AKWAo_UP1YdYx1YYQdqFtbCkbdeljFZw_VdLHZD1UxiUlToRMhFQ_lWnl8ToY-_h7h8dzBO4T9aoxRfnktfqeyhlhWp_uKY";
+const IMG_BENTO_LARGE = "/images/deep_dive.jpg";
 
-const IMG_CARD_FINANCE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuACLSSjWJ2B0w8mnH2Jhpn72l2DLQG9aqlg0djBWeWI3yfw8Yzh6wkjwpcqsyCaZtpEsLbVzzHrgi3U9jhMRBI5mZ-d2CsJKP-Rkf2kU1UnBKLmK9UmGN4QOTwohCbOwpI17-Svd9kvfxsNCSDNCLshuWgNBiZV9jL0Cxiz1R7FFqn5fI8rpRtRn4DKIhrWl_lcXfGF7ALBqFi_Ob0I-4mknmorgx7uhEn_LBc0QOFDDXsSdwTyGFphGDBu40imZS-7mJ54JF01e0A";
-
-const IMG_CARD_DEV =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDRY9vchOSWE7l7DbtRZiuncivNB8I_neaaPp6xrv5UIa4Nq8pfbUvgQnDXYvvsCrtF_I-Sk3qBwNPFFoX62I_OQjm5ZHUGCvJY5mWi7ORIum5IJqYmBk_MzIhKP43EUgvGnS0cJcJ69J8EHuZmThKSE_vhsDeTFHgxDrOpckzE3bXwWwN1BG2k3yPgNGtijNtvVENWuyHUfBn9Zzy92XceNoqight_dxK0ofP5MLsSUzr3WjLKVN5z98Zks8aUOpt1VelKyn5qA";
-
-const IMG_CARD_TEAM =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuA6klNx1DRmLdGU30A6MsZZQEPdRXPwwrfJeLLv4G99m_tVO_LIR0Rqjnda70UcUpQzOPsd_GzryiHY_ZPzvSAVXhk8eLamcHdAkotBglNugNgjYMLsgIJ0KQneMezx6IP0Q1B6zPRaiLIVEBxe2BLhSTE04PYacvjxAQHLvj7NmLL8UONOCV_IIDfZktLQDmmZDolprPHvra7-S-VtZafApSms5l8XfI2eUmLZOGE5kNAZkewDE1Rsfjw-k96VV450OhzTuGumZ0g";
+const IMG_CREDIT_BUILDER = "/images/credit_builder.jpg";
+const IMG_MARKETING = "/images/marketing.jpg";
+const IMG_MARKETING_2 = "/images/marketing2.jpg";
 
 function IconArrow() {
   return (
@@ -120,6 +114,7 @@ const HOME_TOP_PICKS: {
   },
 ];
 
+/** Order: 1) credit builder, 2) marketing (center column on desktop), 3) PM last */
 const HOME_EDITOR_CHOICE_CARDS: {
   href: string;
   category: string;
@@ -127,6 +122,7 @@ const HOME_EDITOR_CHOICE_CARDS: {
   description: string;
   image: string;
   imageAlt: string;
+  imageCredit?: string;
   readMin: number;
 }[] = [
   {
@@ -135,8 +131,9 @@ const HOME_EDITOR_CHOICE_CARDS: {
     title: "Best Credit Builder Apps",
     description:
       "Reliable platforms to help you build credit with clear reporting and low fees.",
-    image: IMG_CARD_FINANCE,
+    image: IMG_CREDIT_BUILDER,
     imageAlt: "Credit builder apps",
+    imageCredit: "Photo: MyStackTools — replace with photographer or stock license as needed.",
     readMin: 6,
   },
   {
@@ -145,7 +142,7 @@ const HOME_EDITOR_CHOICE_CARDS: {
     title: "Best AI Writing Tools for Marketing",
     description:
       "Compare top AI tools for content creation, marketing, and automation.",
-    image: IMG_CARD_DEV,
+    image: IMG_MARKETING,
     imageAlt: "AI writing tools for marketing",
     readMin: 8,
   },
@@ -155,7 +152,7 @@ const HOME_EDITOR_CHOICE_CARDS: {
     title: "Best Project Management Tools for Small Teams",
     description:
       "Compare tools that help teams collaborate, track tasks, and scale workflows.",
-    image: IMG_CARD_TEAM,
+    image: IMG_MARKETING_2,
     imageAlt: "Project management for small teams",
     readMin: 12,
   },
@@ -286,13 +283,14 @@ export function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-            <div className="card relative !h-[380px] !p-0 overflow-hidden md:col-span-8 md:!h-[450px]">
+            <div className="card relative !h-[380px] !p-0 overflow-hidden md:col-span-8 md:col-start-1 md:row-start-1 md:!h-[450px]">
               <Image
                 src={IMG_BENTO_LARGE}
-                alt="AI tools feature"
+                alt="Editorial deep dive on AI tools for small business"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 66vw"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
               <div className="absolute bottom-0 left-0 z-10 p-6 md:p-8">
@@ -318,7 +316,7 @@ export function HomePage() {
               </div>
             </div>
 
-            <div className="card relative flex flex-col overflow-hidden border-[var(--primary)]/20 bg-[var(--primary)]/5 md:col-span-4 md:min-h-[280px]">
+            <div className="card relative flex flex-col overflow-hidden border-[var(--primary)]/20 bg-[var(--primary)]/5 md:col-span-4 md:col-start-9 md:row-start-1 md:min-h-[280px]">
               <div className="relative z-10 flex flex-1 flex-col">
                 <h3 className="mb-2 text-xl font-semibold text-[var(--primary)]">
                   Compare pricing for top tools
@@ -381,11 +379,17 @@ export function HomePage() {
               <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[var(--primary)]/10 blur-3xl" />
             </div>
 
-            {HOME_EDITOR_CHOICE_CARDS.map((post) => (
+            {HOME_EDITOR_CHOICE_CARDS.map((post, index) => (
               <Link
                 key={post.href}
                 href={post.href}
-                className="card group flex h-full cursor-pointer flex-col no-underline text-primary transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] md:col-span-4"
+                className={`card group flex h-full cursor-pointer flex-col no-underline text-primary transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] md:col-span-4 md:row-start-2 ${
+                  index === 0
+                    ? "md:col-start-1"
+                    : index === 1
+                      ? "md:col-start-5"
+                      : "md:col-start-9"
+                }`}
               >
                 <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
                   <Image
@@ -396,6 +400,11 @@ export function HomePage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
+                {post.imageCredit ? (
+                  <p className="mb-2 text-[10px] font-medium leading-snug text-secondary">
+                    {post.imageCredit}
+                  </p>
+                ) : null}
                 <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
                   {post.category}
                 </span>
