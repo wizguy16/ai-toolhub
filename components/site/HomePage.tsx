@@ -3,10 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AffiliateAnchor } from "@/components/AffiliateAnchor";
 import { tools, type ToolId } from "@/lib/tools";
+import { HeroAiRecommend } from "./HeroAiRecommend";
 import { StubForm } from "./StubForm";
-
-const IMG_HERO =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuAw5VM1mMK73eIOrOmbYsiAlnU1iCtLbHCqBVzahKxIWMEp1TWqX3PW06TKpXzQzqdZ9Rsnf4nuBgwaZ3GQCjvHRs_pBhccD7VmHipPONk7e5hgSB3a-inGkOIG7k0ll1Yxe4QhqszgBEytXM-15VWM4NMLlCQI8Ori_rU9BsURX1qrKgA8vnyGeSopiKPe907d8c6e0K2M-h6ZXFFsPa0ZYlBA4qs64GQQg_VeejeSHo8KCQRMHIMzvSM-fx2WPj_eYKGs4uMGduk";
 
 const IMG_BENTO_LARGE =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCtuk1I33S934asmYgrYbUSZBztYvW25ST5-ygJNbo-d_7ZqOgQFZ4lRPvc2DVkSGdJvMQPPlsQAd_fLvJo8GSifey9XJvVLIwNSGF_sFVwMyOsYzzc3xtD39gz5KvazERymvHQznQew3czY9o7ID1LoHuFQztHw0Nhg0tpAT9WlhF1AKWAo_UP1YdYx1YYQdqFtbCkbdeljFZw_VdLHZD1UxiUlToRMhFQ_lWnl8ToY-_h7h8dzBO4T9aoxRfnktfqeyhlhWp_uKY";
@@ -126,51 +124,15 @@ export function HomePage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary">
       <main className="mx-auto max-w-[1120px] px-6 py-12 md:py-20">
-        <section className="mb-16 flex flex-col items-center gap-10 md:mb-24 md:flex-row md:items-center md:gap-12 md:text-left">
-          <div className="flex-1 text-center md:text-left">
-            <span className="badge mb-4 inline-block uppercase">
-              Expert insights
-            </span>
-            <h1 className="mb-5 text-4xl font-bold leading-tight tracking-tight text-primary md:text-5xl lg:text-[3rem] lg:leading-[1.15]">
-              Find the Best Tools for Your Needs
-            </h1>
-            <p className="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-secondary md:mx-0 md:text-xl">
-              In-depth reviews and comparisons of the software, apps, and
-              hardware driving the modern digital economy. We test so you
-              don&apos;t have to.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 md:justify-start">
-              <Link
-                href="/posts/pm-tools"
-                className="btn-primary inline-flex items-center justify-center no-underline transition hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Explore best picks
-              </Link>
-              <Link
-                href="/posts"
-                className="btn-secondary inline-flex items-center justify-center no-underline shadow-sm transition"
-              >
-                Latest reviews
-              </Link>
-            </div>
-          </div>
-          <div className="relative h-[280px] w-full max-w-xl flex-1 overflow-hidden rounded-3xl shadow-2xl sm:h-[360px] md:h-[400px] md:max-w-none">
-            <div className="absolute inset-0 z-10 bg-gradient-to-tr from-[var(--primary)]/25 to-transparent" />
-            <Image
-              src={IMG_HERO}
-              alt="Dashboard preview"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
-        </section>
+        <HeroAiRecommend />
 
-        <section className="py-16">
-          <div className="mb-8">
+        <section className="border-t border-[var(--border)] py-14 md:py-16">
+          <div className="mb-8 text-center md:text-left">
             <h2 className="text-3xl font-semibold tracking-tight text-primary md:text-[2rem]">
-              Top picks right now
+              <span aria-hidden className="mr-1.5 inline-block">
+                🔥
+              </span>
+              Top Tools People Are Using Right Now
             </h2>
             <p className="mt-1 max-w-2xl text-lg text-secondary">
               Hand-picked tools we recommend based on performance and value.
