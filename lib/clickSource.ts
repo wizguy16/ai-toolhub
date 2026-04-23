@@ -7,6 +7,9 @@ export const CLICK_SOURCES = [
   "sidebar-best-deals",
   "article-review",
   "article-comparison",
+  "recommend-top",
+  "recommend-alt",
+  "recommend-learn-more",
 ] as const;
 
 export type ClickSource = (typeof CLICK_SOURCES)[number];

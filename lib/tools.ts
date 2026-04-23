@@ -28,6 +28,16 @@ export const tools = {
     affiliate: "https://www.jasper.ai/?ref=yourid",
     category: "ai",
   },
+  copyai: {
+    name: "Copy.ai",
+    affiliate: "https://www.copy.ai/?via=yourid",
+    category: "ai",
+  },
+  writesonic: {
+    name: "Writesonic",
+    affiliate: "https://writesonic.com/?ref=yourid",
+    category: "ai",
+  },
   ramp: {
     name: "Ramp",
     affiliate: "https://ramp.com/?ref=yourid",
