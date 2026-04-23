@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { affiliateClickHref, type ToolId } from "@/lib/tools";
+import { affiliateClickHref } from "@/lib/tools";
+import { getRecommendBundle, parseRecommendQueryParam } from "@/lib/recommendResults";
 
 type Props = {
   searchParams: Promise<{ q?: string | string[] }>;
@@ -56,46 +57,38 @@ function IconSubmitArrow() {
   );
 }
 
+function ToolLogo({
+  name,
+  logoSrc,
+  className,
+}: {
+  name: string;
+  logoSrc?: string;
+  className: string;
+}) {
+  if (logoSrc) {
+    return (
+      <div className={`${className} shrink-0 overflow-hidden rounded-xl bg-[var(--border)]`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} alt="" className="h-full w-full object-cover" width={128} height={128} />
+      </div>
+    );
+  }
+  const initial = name.trim().charAt(0).toUpperCase() || "?";
+  return (
+    <div
+      className={`${className} flex shrink-0 items-center justify-center rounded-xl bg-[rgba(29,78,216,0.12)] text-lg font-bold text-[var(--primary)] md:text-2xl`}
+      aria-hidden
+    >
+      {initial}
+    </div>
+  );
+}
+
 export default async function RecommendPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const raw = sp.q;
-  const q =
-    typeof raw === "string" ? raw.trim() : Array.isArray(raw) ? raw[0]?.trim() ?? "" : "";
-  const hasQuery = Boolean(q);
-
-  const primary = {
-    toolId: "jasper" as const satisfies ToolId,
-    name: "Jasper AI",
-    rating: "4.8",
-    description:
-      "The ultimate AI writing assistant for enterprise teams and creators, designed to scale high-quality content production effortlessly.",
-    bestFor: "Content Marketing & Scaling",
-    tags: ["SEO-optimized copy", "50+ templates", "Team collaboration"] as const,
-    logoSrc:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDlWs9OBu4q5wGhfGY3BqlTyeu8xHmQTJJXHeilQvz7LzTbinGsfipaOLMRGI8znGLHzD3SLa_3MrzbTPwx1rQLIfni6IODdJcs4MHSGt-Gx7N_5lrnX2bokBRuQ79R4WtvvagGVrXPdH_lqVfgroRkGf39yBvyFUYNTX1VHlGEtoqJ2mlFeZzLd4rD-5_rWc-o5gJw2iUOp_T-fF-benlc7sZH70tqurFftNZIuMbi-1EWH4LSCm9vI7cCXKWUjc9w1xLhbt_VeS8",
-  };
-
-  const alternates = [
-    {
-      toolId: "copyai" as const satisfies ToolId,
-      name: "Copy.ai",
-      rating: "4.6",
-      badge: "Best for beginners",
-      description: "Quick and easy marketing copy generation with an intuitive workspace for rapid content drafting.",
-      logoSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuAA-L8dxg-9S_VglTZrZjSFh0BR5eUOjd7-m3KmLfmNDgQQlTazbBMV0Mnb42bEv4U3_SHvpL7lRUi2Wgx4ARfEJMer_ckcaw_fBh3uuD1ipu8pnAkQej8RfZD0fvzuX98QujzfxKBfH4c9teQs7xcr8NiuTVHp1erDHVRSpBkop8USwdlfbPox5T2dOWcYnFe1fmosOGomuZzVrj_jianXQqTCWAn0GwuLEvpWLuxJLjm1HAdviyaNVidbRbIAhQyXAwNYzqukstQ",
-    },
-    {
-      toolId: "writesonic" as const satisfies ToolId,
-      name: "Writesonic",
-      rating: "4.7",
-      badge: "Best for blogs",
-      description:
-        "AI writer specialized for long-form blogs, ads, and product descriptions with real-time data integration.",
-      logoSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBF4fzeDGu-PNXtvmsCZ-lLaafcPFyCy8khTVRLY8TEZjqb_2mINU7l7sqeg6nsBIPnMaU4AYZB4fhDmgwpXG6-mnjsVyGnZ2TK5PEcpuSxzqFYSD3XK1pxTESGbTaM5Ne-25hSnMWrEPJm8HNTtKnbIXTcv92gHzCd0I7eiqfb3c5fFJJS_t4XcAXjXD_GKAtcCsxZCJWr9dmNEZnWSxmB0mtfFvL9RbwG1covTB69p1ik4k9ROpFgOWyTvejmNyJ-TUwg7dV7iKo",
-    },
-  ] as const;
+  const { displayQuery, normalizedForMatch } = parseRecommendQueryParam(sp.q);
+  const { primary, alternates, pickLabel } = getRecommendBundle(normalizedForMatch);
 
   return (
     <div className="min-h-[calc(100vh-8rem)] bg-[var(--background)] pb-16 pt-6 md:pt-10">
@@ -103,21 +96,23 @@ export default async function RecommendPage({ searchParams }: Props) {
       <header className="mx-auto max-w-[1120px] px-6 pb-10 text-center md:pb-14">
         <div className="mb-4 inline-flex items-center rounded-full bg-[rgba(29,78,216,0.1)] px-3 py-1">
           <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--primary)]">
-            AI Recommendations
+            {displayQuery ? "Your results" : "Top Picks"}
           </span>
         </div>
         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-[var(--text-primary)] md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
-          Best tools for your stack
-        </h1>
-        <p className="mx-auto mb-5 max-w-2xl text-base text-[var(--text-secondary)] md:text-lg">
-          {hasQuery ? (
+          {displayQuery ? (
             <>
               We found the best tools for:{" "}
-              <span className="font-semibold text-[var(--text-primary)]">&ldquo;{q}&rdquo;</span>
+              <span className="text-[var(--text-primary)]">&ldquo;{displayQuery}&rdquo;</span>
             </>
           ) : (
-            <>Run a search from the home page to see tailored picks for your goal.</>
+            <>Top Picks</>
           )}
+        </h1>
+        <p className="mx-auto mb-5 max-w-2xl text-base text-[var(--text-secondary)] md:text-lg">
+          {displayQuery
+            ? "Matched from your goal with simple, transparent keyword rules—always with a primary pick and solid alternates."
+            : "Popular tools teams reach for first. Run a search from the home page any time to tailor results to your goal."}
         </p>
         <Link
           href="/"
@@ -133,21 +128,12 @@ export default async function RecommendPage({ searchParams }: Props) {
         <div className="relative overflow-hidden rounded-2xl border border-[rgba(29,78,216,0.14)] bg-[var(--surface)] p-6 shadow-[0_8px_32px_-8px_rgba(15,23,42,0.1)] md:p-10 lg:p-12">
           <div className="absolute right-4 top-4 md:right-6 md:top-6">
             <span className="inline-block rounded-full bg-[var(--primary)] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-              Top Pick
+              {pickLabel}
             </span>
           </div>
 
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
-            <div className="mx-auto flex h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-[var(--border)] md:h-32 md:w-32 lg:mx-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={primary.logoSrc}
-                alt=""
-                className="h-full w-full object-cover"
-                width={128}
-                height={128}
-              />
-            </div>
+            <ToolLogo name={primary.name} logoSrc={primary.logoSrc} className="mx-auto h-24 w-24 md:h-32 md:w-32 lg:mx-0" />
 
             <div className="min-w-0 flex-1 text-center lg:text-left">
               <div className="mb-2 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
@@ -214,10 +200,7 @@ export default async function RecommendPage({ searchParams }: Props) {
             >
               <div className="mb-4 flex items-start justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">
-                  <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-[var(--border)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={tool.logoSrc} alt="" className="h-full w-full object-cover" width={44} height={44} />
-                  </div>
+                  <ToolLogo name={tool.name} logoSrc={tool.logoSrc} className="h-11 w-11 rounded-lg" />
                   <div>
                     <h4 className="font-semibold text-[var(--text-primary)]">{tool.name}</h4>
                     <span className="mt-0.5 inline-flex items-center gap-1 text-sm text-[var(--primary)]">
@@ -309,9 +292,11 @@ export default async function RecommendPage({ searchParams }: Props) {
                   id="recommend-refine-q"
                   name="q"
                   type="search"
+                  defaultValue={displayQuery}
                   placeholder="e.g. best CRM for small business"
                   className="hero-ai-input w-full min-w-0 bg-transparent py-2.5 text-base text-primary outline-none placeholder:text-[var(--text-secondary)] md:py-3 md:text-lg"
                   autoComplete="off"
+                  required
                 />
               </div>
               <button

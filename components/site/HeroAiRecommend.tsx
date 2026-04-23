@@ -12,8 +12,6 @@ const TYPEWRITER_PROMPTS = [
 /** Static shortcuts under the search bar — each navigates to `/recommend?q=…` with this exact text. */
 const TRY_CHIP_QUERIES = ["AI writing", "SaaS tools", "Automation"] as const;
 
-const SUBMIT_DELAY_MS = 500;
-
 function IconSubmitArrow() {
   return (
     <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
@@ -43,7 +41,6 @@ function IconTrustVerified() {
 export function HeroAiRecommend() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const navigatingRef = useRef(false);
   const [value, setValue] = useState("");
   const [hoverPaused, setHoverPaused] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -87,22 +84,25 @@ export function HeroAiRecommend() {
     window.setTimeout(() => setShake(false), 500);
   }, []);
 
-  const goToRecommend = useCallback((q: string) => {
-    const trimmed = q.trim();
-    if (!trimmed || navigatingRef.current) return;
-    navigatingRef.current = true;
-    inputRef.current?.blur();
-    setFocused(false);
-    setIsSubmitting(true);
-    window.setTimeout(() => {
-      router.push(`/recommend?q=${encodeURIComponent(trimmed)}`);
-      navigatingRef.current = false;
-      setIsSubmitting(false);
-    }, SUBMIT_DELAY_MS);
-  }, [router]);
+  const goToRecommend = useCallback(
+    (q: string) => {
+      const trimmed = q.trim();
+      if (!trimmed) return;
+      inputRef.current?.blur();
+      setFocused(false);
+      setIsSubmitting(true);
+      const href = `/recommend?q=${encodeURIComponent(trimmed)}`;
+      const result = router.push(href) as PromiseLike<unknown> | void;
+      if (result && typeof result.then === "function") {
+        void Promise.resolve(result).finally(() => setIsSubmitting(false));
+      } else {
+        setIsSubmitting(false);
+      }
+    },
+    [router],
+  );
 
   const submit = useCallback(() => {
-    if (navigatingRef.current) return;
     const q = value.trim();
     if (!q) {
       triggerShake();
@@ -112,7 +112,7 @@ export function HeroAiRecommend() {
       return;
     }
     goToRecommend(q);
-  }, [goToRecommend, value, triggerShake]);
+  }, [value, goToRecommend, triggerShake]);
 
   const overlayText = TYPEWRITER_PROMPTS[promptIdx].slice(0, displayLen);
 
@@ -159,20 +159,12 @@ export function HeroAiRecommend() {
                   onFocus={() => setFocused(true)}
                   onBlur={() => {
                     setFocused(false);
-                    const v = inputRef.current?.value ?? "";
-                    if (!v.trim()) {
+                    if (!value.trim()) {
                       setDisplayLen(0);
                       setDeleting(false);
                     }
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      submit();
-                    }
-                  }}
                   placeholder=""
-                  readOnly={isSubmitting}
                   className={`hero-ai-input w-full min-w-0 bg-transparent py-2.5 text-base outline-none md:py-3 md:text-lg ${
                     showTypewriterOverlay ? "text-transparent caret-[var(--primary)]" : "text-primary placeholder:text-[var(--text-secondary)]"
                   }`}

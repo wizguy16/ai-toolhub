@@ -1,11 +1,10 @@
 import type { ArticleContent } from "@/components/article/types";
 import type { AffiliateId } from "@/lib/affiliates";
 
-const IMG_ASANA =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDNqICMWo876mBWzj7KbV9WYlOhCBtMcNb4ibciGMzumK89FXrBJ73loTYs1IirP46BzThdV6MWoNyRMAFMSqimqLftQNoCPGIRay4CtLBkL7bgynMQVRBI0TBC1YZUTVj8I_g-uMMWxKbyxYGRU8xMny7FnqvYwYEtLYeaSLU6un8zqt_33dfqVMpf33FS3e1bSYIMyvt9ullf_4OJ_ErplTB7Pj1lACkxcgATExnMA56Zi2egsoQWRFqJXwo8DAzXY03C9lQQNl4";
-
-const IMG_MONDAY =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuA6klNx1DRmLdGU30A6MsZZQEPdRXPwwrfJeLLv4G99m_tVO_LIR0Rqjnda70UcUpQzOPsd_GzryiHY_ZPzvSAVXhk8eLamcHdAkotBglNugNgjYMLsgIJ0KQneMezx6IP0Q1B6zPRaiLIVEBxe2BLhSTE04PYacvjxAQHLvj7NmLL8UONOCV_IIDfZktLQDmmZDolprPHvra7-S-VtZafApSms5l8XfI2eUmLZOGE5kNAZkewDE1Rsfjw-k96VV450OhzTuGumZ0g";
+/** Local hero art for article pages (matches `/public/images`). */
+const ARTICLE_IMG_CREDIT_BUILDER = "/images/credit_builder.jpg";
+const ARTICLE_IMG_MARKETING = "/images/marketing.jpg";
+const ARTICLE_IMG_MARKETING_2 = "/images/marketing2.jpg";
 
 /** Buyer-intent credit builder comparison (no invented pricing or stats). */
 export const fixCreditFastArticle: ArticleContent = {
@@ -80,6 +79,7 @@ export const fixCreditFastArticle: ArticleContent = {
       affiliateKey: "creditstrong",
       rating: "4.6/5.0",
       badge: "Top pick",
+      imageSrc: ARTICLE_IMG_CREDIT_BUILDER,
       scoreEase: 82,
       scoreFeatures: 78,
       scoreValue: 84,
@@ -105,6 +105,7 @@ export const fixCreditFastArticle: ArticleContent = {
       affiliateKey: "self",
       rating: "4.5/5.0",
       badge: "Best for habits",
+      imageSrc: ARTICLE_IMG_CREDIT_BUILDER,
       scoreEase: 88,
       scoreFeatures: 72,
       scoreValue: 86,
@@ -129,6 +130,7 @@ export const fixCreditFastArticle: ArticleContent = {
       affiliateKey: "kickoff",
       rating: "4.3/5.0",
       badge: "Compare",
+      imageSrc: ARTICLE_IMG_CREDIT_BUILDER,
       scoreEase: 84,
       scoreFeatures: 74,
       scoreValue: 80,
@@ -229,6 +231,7 @@ export const aiWritingToolsArticle: ArticleContent = {
       affiliateKey: "jasper",
       rating: "4.7/5.0",
       badge: "Top pick",
+      imageSrc: ARTICLE_IMG_MARKETING,
       scoreEase: 80,
       scoreFeatures: 92,
       scoreValue: 78,
@@ -254,6 +257,7 @@ export const aiWritingToolsArticle: ArticleContent = {
       affiliateKey: "copyai",
       rating: "4.5/5.0",
       badge: "Best for speed",
+      imageSrc: ARTICLE_IMG_MARKETING,
       scoreEase: 92,
       scoreFeatures: 84,
       scoreValue: 86,
@@ -278,6 +282,7 @@ export const aiWritingToolsArticle: ArticleContent = {
       affiliateKey: "writesonic",
       rating: "4.6/5.0",
       badge: "Best for content volume",
+      imageSrc: ARTICLE_IMG_MARKETING,
       scoreEase: 82,
       scoreFeatures: 88,
       scoreValue: 84,
@@ -378,6 +383,7 @@ export const pmToolsArticle: ArticleContent = {
       affiliateKey: "notion",
       rating: "4.6/5.0",
       badge: "Top pick",
+      imageSrc: ARTICLE_IMG_MARKETING_2,
       scoreEase: 90,
       scoreFeatures: 86,
       scoreValue: 90,
@@ -403,7 +409,7 @@ export const pmToolsArticle: ArticleContent = {
       affiliateKey: "asana",
       rating: "4.5/5.0",
       badge: "Best for task clarity",
-      imageSrc: IMG_ASANA,
+      imageSrc: ARTICLE_IMG_MARKETING_2,
       scoreEase: 86,
       scoreFeatures: 90,
       scoreValue: 82,
@@ -429,7 +435,7 @@ export const pmToolsArticle: ArticleContent = {
       affiliateKey: "monday",
       rating: "4.6/5.0",
       badge: "Best for visual workflows",
-      imageSrc: IMG_MONDAY,
+      imageSrc: ARTICLE_IMG_MARKETING_2,
       scoreEase: 82,
       scoreFeatures: 92,
       scoreValue: 80,

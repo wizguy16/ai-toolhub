@@ -161,22 +161,24 @@ const HOME_EDITOR_CHOICE_CARDS: {
 const HOME_PRICE_ROWS: {
   tool: ToolId;
   bestFor: string;
-  startingPrice: string;
+  valueLine: string;
+  socialProof?: string;
 }[] = [
   {
     tool: "notion",
-    bestFor: "Best for all-in-one workspace",
-    startingPrice: "Free; paid from ~$10/user/mo",
+    bestFor: "Best all-in-one workspace for teams and individuals",
+    valueLine: "Start free, scale as your workflow grows",
+    socialProof: "Used by millions of teams worldwide",
   },
   {
     tool: "asana",
-    bestFor: "Best for team task management",
-    startingPrice: "Free; paid from ~$11/user/mo",
+    bestFor: "Best for structured task and project tracking",
+    valueLine: "Free to start, built for growing teams",
   },
   {
     tool: "monday",
-    bestFor: "Best for structured workflows",
-    startingPrice: "Free; paid from ~$9/seat/mo",
+    bestFor: "Best for customizable workflows and operations",
+    valueLine: "Flexible plans for teams that need structure",
   },
 ];
 
@@ -316,15 +318,15 @@ export function HomePage() {
               </div>
             </div>
 
-            <div className="card relative flex flex-col overflow-hidden border-[var(--primary)]/20 bg-[var(--primary)]/5 md:col-span-4 md:col-start-9 md:row-start-1 md:min-h-[280px]">
+            <div className="card relative flex flex-col overflow-hidden border-[var(--primary)]/25 bg-gradient-to-b from-[var(--primary)]/[0.07] to-[var(--primary)]/[0.03] md:col-span-4 md:col-start-9 md:row-start-1 md:min-h-[280px]">
               <div className="relative z-10 flex flex-1 flex-col">
-                <h3 className="mb-2 text-xl font-semibold text-[var(--primary)]">
-                  Compare pricing for top tools
+                <h3 className="mb-1.5 text-xl font-semibold leading-snug tracking-tight text-[var(--primary)] md:text-[1.35rem]">
+                  Compare the best tools for your team
                 </h3>
-                <p className="mb-5 text-sm text-secondary">
-                  {"Don't overpay — compare top tools in seconds"}
+                <p className="mb-4 text-sm leading-snug text-secondary">
+                  Quickly see which tool fits your workflow and budget
                 </p>
-                <ul className="mb-6 flex list-none flex-1 flex-col gap-3 p-0">
+                <ul className="mb-4 flex list-none flex-1 flex-col gap-2 p-0">
                   {HOME_PRICE_ROWS.map((row, i) => {
                     const meta = tools[row.tool];
                     const pos = `price-row-${i + 1}`;
@@ -338,31 +340,28 @@ export function HomePage() {
                           title={`${meta.name}: view pricing (opens in a new tab)`}
                           className={
                             isPopular
-                              ? "card group !flex !flex-row !flex-wrap !items-center !justify-between !gap-x-3 !gap-y-1.5 !border-2 !border-[var(--primary)]/45 !bg-[var(--primary)]/[0.11] !px-3 !py-2.5 text-sm !shadow-sm no-underline transition hover:!border-[var(--primary)]/55 hover:!bg-[var(--primary)]/[0.14] hover:shadow-md cursor-pointer"
-                              : "card group !flex !flex-row !flex-wrap !items-center !justify-between !gap-x-3 !gap-y-1.5 !px-3 !py-2.5 text-sm !shadow-sm no-underline transition hover:border-[var(--primary)]/35 hover:bg-[var(--surface)]/80 hover:shadow-md cursor-pointer"
+                              ? "card group flex w-full flex-col items-stretch gap-1.5 !border-2 !border-[var(--primary)]/50 !bg-[var(--primary)]/[0.13] !px-3.5 !py-3.5 text-left text-sm !shadow-sm no-underline transition duration-200 hover:-translate-y-1 hover:!border-[var(--primary)]/60 hover:!bg-[var(--primary)]/[0.16] hover:shadow-md cursor-pointer md:!py-4"
+                              : "card group flex w-full flex-col items-stretch gap-1 !border !border-[var(--border)] !bg-[var(--surface)] !px-3 !py-2.5 text-left text-sm !shadow-sm no-underline transition duration-200 hover:-translate-y-1 hover:border-[var(--primary)]/35 hover:shadow-md cursor-pointer"
                           }
                         >
-                          <div className="min-w-0 flex-[1_1_10rem]">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="font-medium text-primary">
-                                {meta.name}
-                              </span>
-                              {isPopular ? (
-                                <span className="badge shrink-0 text-[10px] font-bold uppercase tracking-wider">
-                                  Most popular
-                                </span>
-                              ) : null}
-                            </div>
-                            <span className="mt-0.5 block text-xs leading-snug text-secondary">
-                              {row.bestFor}
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className={`font-semibold text-primary ${isPopular ? "text-[15px] md:text-base" : ""}`}>
+                              {meta.name}
                             </span>
+                            {isPopular ? (
+                              <span className="badge shrink-0 text-[10px] font-bold uppercase tracking-wider">
+                                MOST POPULAR
+                              </span>
+                            ) : null}
                           </div>
-                          <span className="shrink-0 font-semibold text-secondary">
-                            {row.startingPrice}
+                          <p className="text-xs leading-snug text-secondary">{row.bestFor}</p>
+                          <p className="text-sm font-semibold leading-snug text-primary/90">{row.valueLine}</p>
+                          <span className="mt-0.5 text-sm font-semibold text-[var(--primary)] group-hover:underline">
+                            → View pricing
                           </span>
-                          <span className="ml-auto shrink-0 font-semibold text-[var(--primary)] group-hover:underline">
-                            View pricing →
-                          </span>
+                          {row.socialProof ? (
+                            <p className="mt-1 text-[11px] font-medium leading-snug text-secondary">{row.socialProof}</p>
+                          ) : null}
                         </AffiliateAnchor>
                       </li>
                     );
@@ -370,11 +369,23 @@ export function HomePage() {
                 </ul>
                 <Link
                   href="/posts/pm-tools"
-                  className="btn-primary inline-flex w-full items-center justify-center gap-2 no-underline transition hover:opacity-95"
+                  className="btn-primary mb-4 inline-flex w-full items-center justify-center gap-2 no-underline transition hover:opacity-95"
                 >
-                  See full comparison
+                  Compare all tools side-by-side
                   <span aria-hidden>→</span>
                 </Link>
+                <div className="mt-auto border-t border-[var(--border)]/70 pt-4">
+                  <p className="mb-2.5 text-center text-sm font-medium text-secondary">
+                    Not sure which one fits you best?
+                  </p>
+                  <Link
+                    href="/recommend"
+                    className="btn-secondary inline-flex w-full items-center justify-center gap-1.5 text-center text-sm font-semibold no-underline transition hover:opacity-95"
+                  >
+                    Get personalized recommendations
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
               </div>
               <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[var(--primary)]/10 blur-3xl" />
             </div>
