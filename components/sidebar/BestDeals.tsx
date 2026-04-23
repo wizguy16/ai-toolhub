@@ -1,100 +1,60 @@
-import Link from "next/link";
 import AffiliateButton from "@/components/AffiliateButton";
 import type { AffiliateId } from "@/lib/affiliates";
 
 type Deal = {
   name: string;
-  price: string;
-  cta: string;
-} & (
-  | { affiliateTool: AffiliateId; href?: undefined; external?: undefined }
-  | { href: string; external: boolean; affiliateTool?: undefined }
-);
+  teaser: string;
+  affiliateTool: AffiliateId;
+};
 
 const deals: Deal[] = [
   {
-    name: "Asana",
-    price: "From $10.99/user/mo",
-    affiliateTool: "asana",
-    cta: "View deal",
+    name: "Credit Strong",
+    teaser: "Structured plans for steady payment history",
+    affiliateTool: "creditstrong",
+  },
+  {
+    name: "Jasper",
+    teaser: "Flexible pricing for growing teams",
+    affiliateTool: "jasper",
   },
   {
     name: "Monday.com",
-    price: "From $9/user/mo",
+    teaser: "Visual workflows that scale with your ops",
     affiliateTool: "monday",
-    cta: "View deal",
-  },
-  {
-    name: "Linear",
-    price: "From $8/user/mo",
-    href: "/posts/pm-tools",
-    external: false,
-    cta: "See breakdown",
   },
 ];
 
-function DealCta({ deal, index }: { deal: Deal; index: number }) {
-  const className =
-    "btn-secondary inline-flex w-full items-center justify-center text-center text-sm no-underline";
-
-  if ("affiliateTool" in deal && deal.affiliateTool) {
-    return (
-      <AffiliateButton
-        tool={deal.affiliateTool}
-        label={deal.cta}
-        variant="outline"
-        className={className}
-        source="sidebar-best-deals"
-        pos={`deal-${index + 1}`}
-        linkTitle="Opens in a new tab"
-      />
-    );
-  }
-
-  if (deal.external) {
-    return (
-      <a href={deal.href} className={className}>
-        {deal.cta}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={deal.href} className={className}>
-      {deal.cta}
-    </Link>
-  );
-}
-
 export function BestDeals() {
   return (
-    <div className="card space-y-5">
-      <h2 className="text-lg font-semibold tracking-tight text-primary">
-        Best Deals
+    <div className="rounded-[var(--radius)] border-2 border-[var(--primary)]/15 bg-[var(--surface)] p-6 shadow-[0_4px_14px_rgba(0,0,0,0.07)] transition duration-200 hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)]">
+      <h2 className="mb-5 text-lg font-semibold tracking-tight text-primary">
+        Best deals
       </h2>
-      <ul className="m-0 list-none space-y-4 p-0">
+      <ul className="m-0 list-none space-y-0 p-0">
         {deals.map((deal, index) => (
           <li
             key={deal.name}
             className={
-              index > 0
-                ? "border-t border-[var(--border)] pt-4"
-                : undefined
+              index > 0 ? "border-t border-[var(--border)] pt-4 mt-4" : undefined
             }
           >
-            <div className="flex flex-col gap-3">
-              <div>
-                <p className="flex flex-wrap items-center gap-2 font-semibold text-primary">
-                  {"affiliateTool" in deal && deal.affiliateTool ? (
-                    <span className="rounded bg-[var(--primary)]/12 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--primary)]">
-                      Save
-                    </span>
-                  ) : null}
-                  {deal.name}
+            <div className="flex flex-col gap-3 rounded-xl bg-[var(--background)] p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <p className="font-semibold text-primary">{deal.name}</p>
+                <p className="mt-1 text-xs font-medium text-[var(--success)]">
+                  {deal.teaser}
                 </p>
-                <p className="mt-1 cursor-default text-sm text-secondary">{deal.price}</p>
               </div>
-              <DealCta deal={deal} index={index} />
+              <AffiliateButton
+                tool={deal.affiliateTool}
+                label="View deal"
+                variant="outline"
+                className="btn-secondary inline-flex w-full shrink-0 items-center justify-center text-center text-sm no-underline sm:w-auto sm:min-w-[7.5rem]"
+                source="sidebar-best-deals"
+                pos={`deal-${index + 1}`}
+                linkTitle="Opens in a new tab"
+              />
             </div>
           </li>
         ))}

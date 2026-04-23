@@ -85,7 +85,13 @@ export const tools = {
   },
   kickoff: {
     name: "Kickoff",
-    affiliate: "https://kickoff.com/?ref=yourid",
+    affiliate: "https://plus.kikoff.com/?ref=yourid",
+    category: "credit",
+  },
+  /** Same program as `kickoff`; use for `/api/click?tool=kikoff` editorial links. */
+  kikoff: {
+    name: "Kikoff",
+    affiliate: "https://plus.kikoff.com/?ref=yourid",
     category: "credit",
   },
   linear: {

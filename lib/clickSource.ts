@@ -9,6 +9,8 @@ export const CLICK_SOURCES = [
   "sidebar-best-deals",
   /** Article body CTAs (top pick, inline reviews, comparison table). */
   "article",
+  /** Long-form editorial article inline CTAs. */
+  "article-editorial",
   "article-review",
   "article-comparison",
   "recommend-top",

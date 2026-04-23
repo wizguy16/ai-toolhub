@@ -1,122 +1,95 @@
 import Link from "next/link";
 import { AffiliateAnchor } from "@/components/AffiliateAnchor";
-import type { AffiliateId } from "@/lib/affiliates";
+import type { ToolId } from "@/lib/tools";
 
-type ToolRow = {
-  name: string;
-  label: string;
-  cta: string;
-  variant: "primary" | "secondary";
-} & (
-  | { href: string; affiliateTool?: undefined }
-  | { affiliateTool: AffiliateId; href?: undefined }
-);
+type TopToolRow =
+  | {
+      kind: "affiliate";
+      name: string;
+      benefit: string;
+      cta: string;
+      tool: ToolId;
+      pos: string;
+    }
+  | {
+      kind: "internal";
+      name: string;
+      benefit: string;
+      cta: string;
+      href: string;
+    };
 
-function IconRowChevron({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      width={20}
-      height={20}
-      aria-hidden
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M9 18l6-6-6-6" />
-    </svg>
-  );
-}
-
-const topToolRows: ToolRow[] = [
+/** Registry-only picks: credit, AI, PM (see `lib/tools.ts`). */
+const topToolRows: TopToolRow[] = [
   {
-    name: "Linear",
-    label: "Best for fast-moving engineering teams",
-    href: "/posts/pm-tools",
+    kind: "affiliate",
+    name: "Credit Strong",
+    benefit: "Structured credit building you can put on autopay.",
+    cta: "View pricing",
+    tool: "creditstrong",
+    pos: "sidebar-top-1",
+  },
+  {
+    kind: "internal",
+    name: "Jasper",
+    benefit: "Marketing copy at scale with brand guardrails.",
     cta: "Read review",
-    variant: "primary",
+    href: "/posts/best-ai-writing-tools-marketing",
   },
   {
-    name: "Notion AI",
-    label: "Best for beginners",
-    href: "/tools",
-    cta: "See tools",
-    variant: "secondary",
-  },
-  {
-    name: "Self",
-    label: "Best for credit-building workflows",
-    affiliateTool: "self",
-    cta: "See pricing",
-    variant: "secondary",
+    kind: "internal",
+    name: "Notion",
+    benefit: "Docs, wikis, and light project tracking in one place.",
+    cta: "Read review",
+    href: "/posts/pm-tools",
   },
 ];
 
 export function TopTools() {
   return (
-    <div className="card space-y-5">
-      <h2 className="text-lg font-semibold tracking-tight text-primary">
-        Top Tools Right Now
+    <div className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[0_4px_14px_rgba(0,0,0,0.07)] transition duration-200 hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)]">
+      <h2 className="mb-5 text-lg font-semibold tracking-tight text-primary">
+        Top tools right now
       </h2>
-      <ul className="m-0 list-none space-y-5 p-0">
-        {topToolRows.map((tool, index) => (
+      <ul className="m-0 list-none space-y-0 p-0">
+        {topToolRows.map((row, index) => (
           <li
-            key={tool.name}
+            key={row.name}
             className={
-              index > 0
-                ? "border-t border-[var(--border)] pt-5"
-                : undefined
+              index > 0 ? "border-t border-[var(--border)] pt-4 mt-4" : undefined
             }
           >
-            {"affiliateTool" in tool && tool.affiliateTool ? (
-              <AffiliateAnchor
-                tool={tool.affiliateTool}
-                source="sidebar-top-tools"
-                pos={`row-${index + 1}`}
-                title="Opens in a new tab"
-                className="group block rounded-xl no-underline outline-none ring-offset-2 transition hover:bg-[var(--background)] focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1 space-y-3">
-                    <div>
-                      <p className="font-semibold text-primary transition-colors duration-200 group-hover:text-[var(--primary)] group-hover:opacity-[0.92]">
-                        {tool.name}
-                      </p>
-                      <p className="mt-1 cursor-default text-sm leading-snug text-secondary">
-                        {tool.label}
-                      </p>
-                    </div>
-                    <span
-                      className={
-                        tool.variant === "primary"
-                          ? "btn-primary inline-flex w-full items-center justify-center py-2.5 text-center text-sm font-semibold"
-                          : "btn-secondary inline-flex w-full items-center justify-center border-2 border-[var(--primary)] py-2.5 text-center text-sm font-semibold text-[var(--primary)]"
-                      }
-                    >
-                      {tool.cta}
-                    </span>
-                  </div>
-                  <IconRowChevron className="mt-1 shrink-0 text-secondary" />
+            {row.kind === "affiliate" ? (
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-semibold text-primary">{row.name}</p>
+                  <p className="mt-1 text-sm leading-snug text-secondary">
+                    {row.benefit}
+                  </p>
                 </div>
-              </AffiliateAnchor>
+                <AffiliateAnchor
+                  tool={row.tool}
+                  source="sidebar-top-tools"
+                  pos={row.pos}
+                  title="Opens in a new tab"
+                  className="shrink-0 text-sm font-semibold text-[var(--primary)] no-underline hover:underline"
+                >
+                  {row.cta}
+                </AffiliateAnchor>
+              </div>
             ) : (
-              <div className="space-y-3">
-                <div>
-                  <p className="font-semibold text-primary">{tool.name}</p>
-                  <p className="mt-1 cursor-default text-sm leading-snug text-secondary">
-                    {tool.label}
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-semibold text-primary">{row.name}</p>
+                  <p className="mt-1 text-sm leading-snug text-secondary">
+                    {row.benefit}
                   </p>
                 </div>
                 <Link
-                  href={tool.href!}
-                  className={
-                    tool.variant === "primary"
-                      ? "btn-primary inline-flex w-full items-center justify-center text-center text-sm no-underline"
-                      : "btn-secondary inline-flex w-full items-center justify-center text-center text-sm no-underline"
-                  }
+                  href={row.href}
+                  className="shrink-0 text-sm font-semibold text-[var(--primary)] no-underline hover:underline"
                 >
-                  {tool.cta}
+                  {row.cta}
                 </Link>
               </div>
             )}

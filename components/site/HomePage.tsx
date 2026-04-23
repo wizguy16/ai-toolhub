@@ -27,22 +27,6 @@ function IconArrow() {
   );
 }
 
-function IconClock() {
-  return (
-    <svg
-      className="h-4 w-4 shrink-0 text-secondary"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      aria-hidden
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
-
 function StarGlyph({ className, style }: { className?: string; style?: CSSProperties }) {
   return (
     <svg className={className} style={style} viewBox="0 0 20 20" aria-hidden>
@@ -123,7 +107,6 @@ const HOME_EDITOR_CHOICE_CARDS: {
   image: string;
   imageAlt: string;
   imageCredit?: string;
-  readMin: number;
 }[] = [
   {
     href: "/posts/fix-credit-fast-2026",
@@ -134,7 +117,6 @@ const HOME_EDITOR_CHOICE_CARDS: {
     image: IMG_CREDIT_BUILDER,
     imageAlt: "Credit builder apps",
     imageCredit: "Photo: MyStackTools — replace with photographer or stock license as needed.",
-    readMin: 6,
   },
   {
     href: "/posts/best-ai-writing-tools-marketing",
@@ -144,7 +126,6 @@ const HOME_EDITOR_CHOICE_CARDS: {
       "Compare top AI tools for content creation, marketing, and automation.",
     image: IMG_MARKETING,
     imageAlt: "AI writing tools for marketing",
-    readMin: 8,
   },
   {
     href: "/posts/pm-tools",
@@ -154,7 +135,6 @@ const HOME_EDITOR_CHOICE_CARDS: {
       "Compare tools that help teams collaborate, track tasks, and scale workflows.",
     image: IMG_MARKETING_2,
     imageAlt: "Project management for small teams",
-    readMin: 12,
   },
 ];
 
@@ -425,9 +405,8 @@ export function HomePage() {
                 <p className="mb-4 flex-grow text-sm leading-relaxed text-secondary">
                   {post.description}
                 </p>
-                <div className="mt-auto flex items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
-                  <IconClock />
-                  {post.readMin} min read
+                <div className="mt-auto border-t border-[var(--border)] pt-4 text-xs font-semibold text-[var(--primary)]">
+                  Read guide →
                 </div>
               </Link>
             ))}

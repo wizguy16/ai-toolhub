@@ -46,7 +46,9 @@ export type FaqItem = {
   answer: string;
 };
 
-export type ArticleContent = {
+/** Comparison / review layout (default when `format` is omitted). */
+export type ArticleComparisonContent = {
+  format?: "comparison";
   title: string;
   intro: string;
   topPick: ArticleTopPick;
@@ -59,3 +61,27 @@ export type ArticleContent = {
   faq: FaqItem[];
   verdict: string;
 };
+
+/** Long-form SEO article with in-body headings and CTAs (no comparison scaffold). */
+export type ArticleEditorialContent = {
+  format: "editorial";
+  title: string;
+  /** Short dek under the title. */
+  subtitle?: string;
+  /** Byline under the dek. */
+  authorLine?: string;
+  /** Header badge (e.g. “Credit & finance”). */
+  categoryLabel?: string;
+  updatedLabel?: string;
+  recommendQuery?: string;
+  /** Open Graph / meta description when `intro` is not used. */
+  metaDescription?: string;
+};
+
+export type ArticleContent = ArticleComparisonContent | ArticleEditorialContent;
+
+export function isEditorialArticle(
+  content: ArticleContent,
+): content is ArticleEditorialContent {
+  return content.format === "editorial";
+}

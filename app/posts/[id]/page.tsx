@@ -1,4 +1,5 @@
 import { ArticlePage } from "@/components/article/ArticlePage";
+import { isEditorialArticle } from "@/components/article/types";
 import { getArticleBySlug } from "@/lib/articleData";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -13,9 +14,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) {
     return { title: "Article | MyStackTools" };
   }
+  const description = isEditorialArticle(article)
+    ? (article.metaDescription ?? article.subtitle ?? article.title).slice(
+        0,
+        155,
+      )
+    : article.intro.slice(0, 155);
+
   return {
     title: `${article.title} | MyStackTools`,
-    description: article.intro.slice(0, 155),
+    description,
     openGraph: { url: `/posts/${id}` },
   };
 }
@@ -27,5 +35,5 @@ export default async function PostArticlePage({ params }: Props) {
     notFound();
   }
 
-  return <ArticlePage content={content} />;
+  return <ArticlePage content={content} slug={id} />;
 }

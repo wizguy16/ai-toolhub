@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { StubForm } from "@/components/site/StubForm";
+import { ArticleEditorialBody } from "./ArticleEditorialBody";
 import { ArticleTopPick } from "./ArticleTopPick";
 import { ComparisonTable } from "./ComparisonTable";
 import { FaqSection } from "./FaqSection";
 import { ToolCard } from "./ToolCard";
 import type { ArticleContent } from "./types";
+import { isEditorialArticle } from "./types";
 
 type ArticlePageProps = {
   content: ArticleContent;
-  /** e.g. "Software Reviews" */
+  /** URL slug — selects editorial body when `content.format === "editorial"`. */
+  slug: string;
+  /** e.g. "Software Reviews" — overridden by editorial `categoryLabel` when set. */
   label?: string;
   updatedLabel?: string;
 };
@@ -44,9 +48,73 @@ function ArticleNewsletter() {
 
 export function ArticlePage({
   content,
+  slug,
   label = "Software Reviews",
   updatedLabel,
 }: ArticlePageProps) {
+  const resolvedUpdatedLabel =
+    updatedLabel ?? content.updatedLabel ?? "Updated Apr 2026";
+
+  if (isEditorialArticle(content)) {
+    const badgeLabel = content.categoryLabel ?? label;
+    const author =
+      content.authorLine ?? "MyStackTools Editorial Team";
+
+    return (
+      <div className="min-h-screen bg-[var(--background)] text-primary">
+        <main className="mx-auto max-w-[1120px] px-6 py-10 md:py-16 lg:py-20">
+          <header className="mb-10 max-w-4xl md:mb-12">
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <span className="badge uppercase">{badgeLabel}</span>
+              <span className="text-sm font-medium text-secondary">
+                {resolvedUpdatedLabel}
+              </span>
+            </div>
+            <h1 className="mb-5 text-3xl font-bold leading-[1.15] tracking-tight text-primary md:text-4xl lg:text-5xl">
+              {content.title}
+            </h1>
+            {content.subtitle ? (
+              <p className="text-lg leading-relaxed text-secondary md:text-xl">
+                {content.subtitle}
+              </p>
+            ) : null}
+            <p className="mt-6 text-sm font-medium text-secondary md:text-base">
+              By {author}
+            </p>
+            <div
+              className="mt-8 h-px max-w-[700px] bg-[var(--border)]"
+              aria-hidden
+            />
+          </header>
+
+          <div className="mx-auto mb-12 w-full max-w-[700px] md:mb-16">
+            <ArticleEditorialBody slug={slug} />
+          </div>
+
+          {content.recommendQuery ? (
+            <aside className="mx-auto mb-12 max-w-[700px] rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 md:mb-16 md:px-6 md:py-5">
+              <p className="mb-3 text-sm font-semibold text-primary">
+                Want picks tailored to your goal?
+              </p>
+              <p className="mb-4 text-sm leading-relaxed text-secondary">
+                Open the recommendation flow with your search pre-filled, then
+                use the tracked tool links when you are ready to try something.
+              </p>
+              <Link
+                href={`/recommend?q=${encodeURIComponent(content.recommendQuery)}`}
+                className="btn-primary inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold no-underline"
+              >
+                See the best tools for your situation →
+              </Link>
+            </aside>
+          ) : null}
+
+          <ArticleNewsletter />
+        </main>
+      </div>
+    );
+  }
+
   const {
     title,
     intro,
@@ -57,8 +125,6 @@ export function ArticlePage({
     verdict,
     recommendQuery,
   } = content;
-  const resolvedUpdatedLabel =
-    updatedLabel ?? content.updatedLabel ?? "Updated Apr 2026";
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary">
@@ -73,9 +139,16 @@ export function ArticlePage({
           <h1 className="mb-5 text-3xl font-bold leading-[1.15] tracking-tight text-primary md:text-4xl lg:text-5xl">
             {title}
           </h1>
-          <p className="text-lg leading-relaxed text-secondary md:text-xl">
+          <p className="max-w-[700px] text-lg leading-[1.75] text-secondary md:text-xl">
             {intro}
           </p>
+          <p className="mt-6 text-sm font-medium text-secondary md:text-base">
+            By MyStackTools Editorial Team
+          </p>
+          <div
+            className="mt-8 h-px max-w-[700px] bg-[var(--border)]"
+            aria-hidden
+          />
         </header>
 
         <ArticleTopPick pick={topPick} />
@@ -111,7 +184,7 @@ export function ArticlePage({
             Final verdict
           </h2>
           <div className="card shadow-sm md:!p-10">
-            <p className="text-lg leading-relaxed text-secondary md:text-xl">
+            <p className="max-w-[700px] text-lg leading-[1.75] text-secondary md:text-xl">
               {verdict}
             </p>
           </div>

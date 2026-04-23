@@ -17,6 +17,7 @@ export const affiliateToolMapByName: Partial<Record<string, AffiliateId>> = {
   "Credit Strong": "creditstrong",
   Self: "self",
   Kickoff: "kickoff",
+  Kikoff: "kikoff",
   "Copy.ai": "copyai",
   Writesonic: "writesonic",
   Linear: "linear",
