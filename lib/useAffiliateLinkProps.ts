@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ClickSource } from "@/lib/clickSource";
 import { getSessionId } from "@/lib/sessionId";
 import { affiliateClickHref, type ToolId } from "@/lib/tools";
@@ -50,11 +50,18 @@ export function useAffiliateLinkProps(
 ) {
   const locked = useRef(false);
   const unlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** Session id only exists in the browser; defer `sid` until after hydration to match SSR HTML. */
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
-  const href = useMemo(
-    () => appendSessionId(affiliateClickHref(tool, source, pos)),
+  const baseHref = useMemo(
+    () => affiliateClickHref(tool, source, pos),
     [tool, source, pos],
   );
+
+  const href = hydrated ? appendSessionId(baseHref) : baseHref;
 
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -70,7 +77,6 @@ export function useAffiliateLinkProps(
       }, DEDUPE_MS);
 
       sendIntentBeacon(tool, source, pos);
-      console.log("Clicked:", tool, source, pos);
     },
     [tool, source, pos],
   );

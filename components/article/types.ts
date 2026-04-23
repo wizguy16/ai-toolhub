@@ -1,5 +1,14 @@
 import type { AffiliateId } from "@/lib/affiliates";
 
+/** Highlighted “editor’s choice” strip after the intro. */
+export type ArticleTopPick = {
+  toolId: AffiliateId;
+  name: string;
+  description: string;
+  benefits: readonly [string, string, string];
+  ctaKind: "get-started" | "view-pricing";
+};
+
 export type ComparisonTableData = {
   headers: string[];
   rows: string[][];
@@ -28,6 +37,8 @@ export type ToolReview = {
   scoreEase?: number;
   scoreFeatures?: number;
   scoreValue?: number;
+  /** 1–2 sentence recap shown above the inline affiliate CTA. */
+  conversionSummary?: string;
 };
 
 export type FaqItem = {
@@ -38,6 +49,11 @@ export type FaqItem = {
 export type ArticleContent = {
   title: string;
   intro: string;
+  topPick: ArticleTopPick;
+  /** Shown next to the label in the article header (e.g. “Updated Apr 2026”). */
+  updatedLabel?: string;
+  /** When set, shows a funnel link to `/recommend` with this search query. */
+  recommendQuery?: string;
   comparisonTable: ComparisonTableData;
   reviews: ToolReview[];
   faq: FaqItem[];

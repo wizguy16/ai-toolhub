@@ -120,6 +120,69 @@ const HOME_TOP_PICKS: {
   },
 ];
 
+const HOME_EDITOR_CHOICE_CARDS: {
+  href: string;
+  category: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  readMin: number;
+}[] = [
+  {
+    href: "/posts/fix-credit-fast-2026",
+    category: "Finance",
+    title: "Best Credit Builder Apps",
+    description:
+      "Reliable platforms to help you build credit with clear reporting and low fees.",
+    image: IMG_CARD_FINANCE,
+    imageAlt: "Credit builder apps",
+    readMin: 6,
+  },
+  {
+    href: "/posts/best-ai-writing-tools-marketing",
+    category: "AI",
+    title: "Best AI Writing Tools for Marketing",
+    description:
+      "Compare top AI tools for content creation, marketing, and automation.",
+    image: IMG_CARD_DEV,
+    imageAlt: "AI writing tools for marketing",
+    readMin: 8,
+  },
+  {
+    href: "/posts/pm-tools",
+    category: "Productivity",
+    title: "Best Project Management Tools for Small Teams",
+    description:
+      "Compare tools that help teams collaborate, track tasks, and scale workflows.",
+    image: IMG_CARD_TEAM,
+    imageAlt: "Project management for small teams",
+    readMin: 12,
+  },
+];
+
+const HOME_PRICE_ROWS: {
+  tool: ToolId;
+  bestFor: string;
+  startingPrice: string;
+}[] = [
+  {
+    tool: "notion",
+    bestFor: "Best for all-in-one workspace",
+    startingPrice: "Free; paid from ~$10/user/mo",
+  },
+  {
+    tool: "asana",
+    bestFor: "Best for team task management",
+    startingPrice: "Free; paid from ~$11/user/mo",
+  },
+  {
+    tool: "monday",
+    bestFor: "Best for structured workflows",
+    startingPrice: "Free; paid from ~$9/seat/mo",
+  },
+];
+
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary">
@@ -258,111 +321,96 @@ export function HomePage() {
             <div className="card relative flex flex-col overflow-hidden border-[var(--primary)]/20 bg-[var(--primary)]/5 md:col-span-4 md:min-h-[280px]">
               <div className="relative z-10 flex flex-1 flex-col">
                 <h3 className="mb-2 text-xl font-semibold text-[var(--primary)]">
-                  Price comparisons
+                  Compare pricing for top tools
                 </h3>
                 <p className="mb-5 text-sm text-secondary">
-                  We track pricing for 500+ SaaS tools weekly.
+                  {"Don't overpay — compare top tools in seconds"}
                 </p>
-                <ul className="mb-6 flex flex-1 flex-col gap-3">
-                  <li className="card !flex !flex-row !items-center !justify-between !px-3 !py-2.5 text-sm !shadow-sm">
-                    <span className="font-medium text-primary">
-                      ProjectManage X
-                    </span>
-                    <span className="font-bold text-[var(--primary)]">
-                      $12/mo
-                    </span>
-                  </li>
-                  <li className="card !flex !flex-row !items-center !justify-between !px-3 !py-2.5 text-sm !shadow-sm">
-                    <span className="font-medium text-primary">
-                      TaskFlow Pro
-                    </span>
-                    <span className="font-bold text-[var(--danger)]">$19/mo</span>
-                  </li>
+                <ul className="mb-6 flex list-none flex-1 flex-col gap-3 p-0">
+                  {HOME_PRICE_ROWS.map((row, i) => {
+                    const meta = tools[row.tool];
+                    const pos = `price-row-${i + 1}`;
+                    const isPopular = row.tool === "notion";
+                    return (
+                      <li key={row.tool}>
+                        <AffiliateAnchor
+                          tool={row.tool}
+                          source="homepage"
+                          pos={pos}
+                          title={`${meta.name}: view pricing (opens in a new tab)`}
+                          className={
+                            isPopular
+                              ? "card group !flex !flex-row !flex-wrap !items-center !justify-between !gap-x-3 !gap-y-1.5 !border-2 !border-[var(--primary)]/45 !bg-[var(--primary)]/[0.11] !px-3 !py-2.5 text-sm !shadow-sm no-underline transition hover:!border-[var(--primary)]/55 hover:!bg-[var(--primary)]/[0.14] hover:shadow-md cursor-pointer"
+                              : "card group !flex !flex-row !flex-wrap !items-center !justify-between !gap-x-3 !gap-y-1.5 !px-3 !py-2.5 text-sm !shadow-sm no-underline transition hover:border-[var(--primary)]/35 hover:bg-[var(--surface)]/80 hover:shadow-md cursor-pointer"
+                          }
+                        >
+                          <div className="min-w-0 flex-[1_1_10rem]">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-medium text-primary">
+                                {meta.name}
+                              </span>
+                              {isPopular ? (
+                                <span className="badge shrink-0 text-[10px] font-bold uppercase tracking-wider">
+                                  Most popular
+                                </span>
+                              ) : null}
+                            </div>
+                            <span className="mt-0.5 block text-xs leading-snug text-secondary">
+                              {row.bestFor}
+                            </span>
+                          </div>
+                          <span className="shrink-0 font-semibold text-secondary">
+                            {row.startingPrice}
+                          </span>
+                          <span className="ml-auto shrink-0 font-semibold text-[var(--primary)] group-hover:underline">
+                            View pricing →
+                          </span>
+                        </AffiliateAnchor>
+                      </li>
+                    );
+                  })}
                 </ul>
-                <button type="button" className="btn-primary w-full">
-                  Compare all plans
-                </button>
+                <Link
+                  href="/posts/pm-tools"
+                  className="btn-primary inline-flex w-full items-center justify-center gap-2 no-underline transition hover:opacity-95"
+                >
+                  See full comparison
+                  <span aria-hidden>→</span>
+                </Link>
               </div>
               <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[var(--primary)]/10 blur-3xl" />
             </div>
 
-            <article className="card flex flex-col md:col-span-4">
-              <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
-                <Image
-                  src={IMG_CARD_FINANCE}
-                  alt="Finance apps"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
-                Finance
-              </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
-                Best Credit Builder Apps
-              </h3>
-              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
-                Reliable platforms to help you build credit with clear reporting
-                and low fees.
-              </p>
-              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
-                <IconClock />
-                6 min read
-              </div>
-            </article>
-
-            <article className="card flex flex-col md:col-span-4">
-              <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
-                <Image
-                  src={IMG_CARD_DEV}
-                  alt="Developer tools"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
-                Development
-              </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
-                Top 10 IDE Extensions for 2026
-              </h3>
-              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
-                Essential plugins to turn your editor into a high-speed shipping
-                environment.
-              </p>
-              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
-                <IconClock />
-                8 min read
-              </div>
-            </article>
-
-            <article className="card flex flex-col md:col-span-4">
-              <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
-                <Image
-                  src={IMG_CARD_TEAM}
-                  alt="Team collaboration"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
-                Productivity
-              </span>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-primary md:text-xl">
-                Remote Collaboration Survival Kit
-              </h3>
-              <p className="mb-4 flex-grow cursor-default text-sm leading-relaxed text-secondary">
-                The definitive list of software your remote team needs to stay
-                connected and efficient.
-              </p>
-              <div className="flex cursor-default items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
-                <IconClock />
-                12 min read
-              </div>
-            </article>
+            {HOME_EDITOR_CHOICE_CARDS.map((post) => (
+              <Link
+                key={post.href}
+                href={post.href}
+                className="card group flex h-full cursor-pointer flex-col no-underline text-primary transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] md:col-span-4"
+              >
+                <div className="relative mb-5 h-40 w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <span className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">
+                  {post.category}
+                </span>
+                <h3 className="mb-2 text-lg font-semibold leading-snug text-primary transition-colors duration-200 group-hover:text-[var(--primary)] md:text-xl">
+                  {post.title}
+                </h3>
+                <p className="mb-4 flex-grow text-sm leading-relaxed text-secondary">
+                  {post.description}
+                </p>
+                <div className="mt-auto flex items-center gap-2 border-t border-[var(--border)] pt-4 text-xs text-secondary">
+                  <IconClock />
+                  {post.readMin} min read
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 

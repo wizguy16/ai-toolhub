@@ -9,11 +9,10 @@ const TYPEWRITER_PROMPTS = [
   "Get top software picks instantly",
 ] as const;
 
-const SUGGESTION_CHIPS: { label: string; fill: string }[] = [
-  { label: "AI writing", fill: "Best AI writing tool for marketing" },
-  { label: "SaaS tools", fill: "Compare tools for building a SaaS app" },
-  { label: "Automation", fill: "Business automation tools" },
-];
+/** Static shortcuts under the search bar — each navigates to `/recommend?q=…` with this exact text. */
+const TRY_CHIP_QUERIES = ["AI writing", "SaaS tools", "Automation"] as const;
+
+const SUBMIT_DELAY_MS = 500;
 
 function IconSubmitArrow() {
   return (
@@ -54,6 +53,7 @@ function IconTrustVerified() {
 export function HeroAiRecommend() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigatingRef = useRef(false);
   const [value, setValue] = useState("");
   const [hoverPaused, setHoverPaused] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -62,6 +62,7 @@ export function HeroAiRecommend() {
   const [promptIdx, setPromptIdx] = useState(0);
   const [displayLen, setDisplayLen] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const showTypewriterOverlay = value === "" && !focused && !hoverPaused;
 
@@ -96,7 +97,22 @@ export function HeroAiRecommend() {
     window.setTimeout(() => setShake(false), 500);
   }, []);
 
+  const goToRecommend = useCallback((q: string) => {
+    const trimmed = q.trim();
+    if (!trimmed || navigatingRef.current) return;
+    navigatingRef.current = true;
+    inputRef.current?.blur();
+    setFocused(false);
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      router.push(`/recommend?q=${encodeURIComponent(trimmed)}`);
+      navigatingRef.current = false;
+      setIsSubmitting(false);
+    }, SUBMIT_DELAY_MS);
+  }, [router]);
+
   const submit = useCallback(() => {
+    if (navigatingRef.current) return;
     const q = value.trim();
     if (!q) {
       triggerShake();
@@ -105,13 +121,8 @@ export function HeroAiRecommend() {
       inputRef.current?.focus();
       return;
     }
-    router.push(`/recommend?q=${encodeURIComponent(q)}`);
-  }, [router, value, triggerShake]);
-
-  const fillChip = (text: string) => {
-    setValue(text);
-    inputRef.current?.focus();
-  };
+    goToRecommend(q);
+  }, [goToRecommend, value, triggerShake]);
 
   const overlayText = TYPEWRITER_PROMPTS[promptIdx].slice(0, displayLen);
 
@@ -150,6 +161,7 @@ export function HeroAiRecommend() {
               <div className="relative min-h-[48px] min-w-0 flex-1 py-0.5 pl-2 pr-1 sm:pl-3 sm:pr-1">
                 <input
                   ref={inputRef}
+                  id="hero-ai-search-input"
                   type="text"
                   name="q"
                   value={value}
@@ -170,6 +182,7 @@ export function HeroAiRecommend() {
                     }
                   }}
                   placeholder=""
+                  readOnly={isSubmitting}
                   className={`hero-ai-input w-full min-w-0 bg-transparent py-2.5 text-base outline-none md:py-3 md:text-lg ${
                     showTypewriterOverlay ? "text-transparent caret-[var(--primary)]" : "text-primary placeholder:text-[var(--text-secondary)]"
                   }`}
@@ -192,7 +205,8 @@ export function HeroAiRecommend() {
 
               <button
                 type="submit"
-                className="hero-ai-submit flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14"
+                disabled={isSubmitting}
+                className="hero-ai-submit flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14 disabled:pointer-events-none disabled:opacity-60"
                 aria-label="Get recommendations"
               >
                 <IconSubmitArrow />
@@ -200,21 +214,31 @@ export function HeroAiRecommend() {
             </div>
           </div>
 
-          <p className="hero-ai-micro mt-3 text-center text-sm font-medium text-[var(--text-secondary)]">
-            Get personalized tool recommendations in seconds
+          <p
+            className={`hero-ai-micro mt-3 text-center text-sm font-medium ${
+              isSubmitting ? "text-[var(--primary)]" : "text-[var(--text-secondary)]"
+            }`}
+            aria-live={isSubmitting ? "polite" : undefined}
+          >
+            {isSubmitting
+              ? "Finding the best tools for you..."
+              : "Get personalized tool recommendations in seconds"}
           </p>
 
-          <div className="hero-ai-chips mt-3 flex flex-wrap justify-center gap-2.5 sm:gap-3">
-            {SUGGESTION_CHIPS.map(({ label, fill }) => (
-              <button
-                key={label}
-                type="button"
-                onClick={() => fillChip(fill)}
-                className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] shadow-sm transition hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] sm:px-5"
-              >
-                {label}
-              </button>
-            ))}
+          <div className="hero-ai-chips mt-3 flex flex-col items-center gap-2.5 sm:gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-x-2.5">
+              <span className="text-sm font-medium text-[var(--text-secondary)]">Try:</span>
+              {TRY_CHIP_QUERIES.map((query) => (
+                <button
+                  key={query}
+                  type="button"
+                  onClick={() => goToRecommend(query)}
+                  className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] shadow-sm transition hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] sm:px-5"
+                >
+                  {query}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="hero-ai-trust mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)] sm:mt-7 sm:gap-x-8">

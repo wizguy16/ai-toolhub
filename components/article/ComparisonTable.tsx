@@ -33,7 +33,7 @@ export function ComparisonTable({
   const { headers, rows, rowAffiliateIds } = data;
 
   return (
-    <section className="mb-12 md:mb-16">
+    <section id="article-comparison" className="mb-12 scroll-mt-24 md:mb-16">
       <h2 className="mb-4 text-2xl font-semibold tracking-tight text-primary md:text-3xl">
         {title}
       </h2>
@@ -97,8 +97,8 @@ export function ComparisonTable({
                               label={cell}
                               variant={v}
                               className="whitespace-nowrap !px-3 !py-2 text-xs md:text-sm"
-                              source="article-comparison"
-                              pos={`cmp-row-${ri + 1}`}
+                              source="article"
+                              pos={`cmp-${ri + 1}`}
                               linkTitle="Opens in a new tab"
                             />
                           ) : (

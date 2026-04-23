@@ -6,27 +6,27 @@ export default function Footer() {
       <div className="footer-container">
         <div className="footer-top">
           <div>
-            <div className="footer-logo">ToolReviews</div>
+            <div className="footer-logo">MyStackTools</div>
             <p className="footer-text">
-              © 2026 ToolReviews. Professional tool insights for modern
+              © 2026 MyStackTools. Professional tool insights for modern
               builders.
             </p>
           </div>
 
           <nav className="footer-links" aria-label="Footer">
-            <Link href="#" className="footer-link">
-              About Us
+            <Link href="/about" className="footer-link">
+              About
             </Link>
-            <Link href="#" className="footer-link">
-              Reviews
+            <Link href="/posts" className="footer-link">
+              Articles
             </Link>
-            <Link href="#" className="footer-link">
-              Newsletter
+            <Link href="/affiliate-disclosure" className="footer-link">
+              Affiliate Disclosure
             </Link>
-            <Link href="#" className="footer-link">
+            <Link href="/privacy" className="footer-link">
               Privacy Policy
             </Link>
-            <Link href="#" className="footer-link">
+            <Link href="/contact" className="footer-link">
               Contact
             </Link>
           </nav>

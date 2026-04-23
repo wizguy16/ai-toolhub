@@ -1,10 +1,14 @@
 /** Known `source=` values only — keeps analytics and partner UTMs consistent. */
 export const CLICK_SOURCES = [
+  /** Homepage price comparison rows and related CTAs. */
+  "homepage",
   "home-top-picks",
   "tools-browse",
   "tools-top-month",
   "sidebar-top-tools",
   "sidebar-best-deals",
+  /** Article body CTAs (top pick, inline reviews, comparison table). */
+  "article",
   "article-review",
   "article-comparison",
   "recommend-top",

@@ -119,7 +119,7 @@ function appendPartnerUtms(
   normalizedSource: ReturnType<typeof parseClickSource>,
 ): void {
   if (!url.searchParams.has("utm_source")) {
-    url.searchParams.set("utm_source", "toolreviews");
+    url.searchParams.set("utm_source", "mystacktools");
   }
   if (!url.searchParams.has("utm_medium")) {
     url.searchParams.set("utm_medium", "affiliate");

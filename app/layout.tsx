@@ -11,9 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ToolReviews | Best software tools, tested",
-  description:
-    "In-depth reviews and comparisons of the best SaaS tools for teams and builders.",
+  title: "MyStackTools",
+  description: "Find the best tools for your needs",
 };
 
 export default function RootLayout({

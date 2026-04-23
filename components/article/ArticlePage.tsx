@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { StubForm } from "@/components/site/StubForm";
+import { ArticleTopPick } from "./ArticleTopPick";
 import { ComparisonTable } from "./ComparisonTable";
 import { FaqSection } from "./FaqSection";
 import { ToolCard } from "./ToolCard";
@@ -43,9 +45,20 @@ function ArticleNewsletter() {
 export function ArticlePage({
   content,
   label = "Software Reviews",
-  updatedLabel = "Updated Oct 2024",
+  updatedLabel,
 }: ArticlePageProps) {
-  const { title, intro, comparisonTable, reviews, faq, verdict } = content;
+  const {
+    title,
+    intro,
+    topPick,
+    comparisonTable,
+    reviews,
+    faq,
+    verdict,
+    recommendQuery,
+  } = content;
+  const resolvedUpdatedLabel =
+    updatedLabel ?? content.updatedLabel ?? "Updated Apr 2026";
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary">
@@ -54,7 +67,7 @@ export function ArticlePage({
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="badge uppercase">{label}</span>
             <span className="text-sm font-medium text-secondary">
-              {updatedLabel}
+              {resolvedUpdatedLabel}
             </span>
           </div>
           <h1 className="mb-5 text-3xl font-bold leading-[1.15] tracking-tight text-primary md:text-4xl lg:text-5xl">
@@ -64,6 +77,26 @@ export function ArticlePage({
             {intro}
           </p>
         </header>
+
+        <ArticleTopPick pick={topPick} />
+
+        {recommendQuery ? (
+          <aside className="mb-10 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 md:mb-12 md:px-6 md:py-5">
+            <p className="mb-3 text-sm font-semibold text-primary">
+              Want picks tailored to your goal?
+            </p>
+            <p className="mb-4 text-sm leading-relaxed text-secondary">
+              Open the recommendation flow with your search pre-filled, then
+              use the tracked tool links when you are ready to try something.
+            </p>
+            <Link
+              href={`/recommend?q=${encodeURIComponent(recommendQuery)}`}
+              className="btn-primary inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold no-underline"
+            >
+              🔥 See the best tools for your situation →
+            </Link>
+          </aside>
+        ) : null}
 
         <ComparisonTable data={comparisonTable} />
 
@@ -85,6 +118,28 @@ export function ArticlePage({
         </section>
 
         <FaqSection items={faq} />
+
+        {recommendQuery ? (
+          <section className="mb-12 md:mb-16">
+            <div className="card flex flex-col items-stretch gap-4 px-6 py-8 text-center shadow-sm md:flex-row md:items-center md:justify-between md:px-10 md:py-10 md:text-left">
+              <div className="max-w-xl">
+                <h2 className="mb-2 text-xl font-bold tracking-tight text-primary md:text-2xl">
+                  Not sure which one is right?
+                </h2>
+                <p className="text-sm leading-relaxed text-secondary md:text-base">
+                  Use the recommendation flow with your goal pre-filled—then
+                  click through with full click tracking.
+                </p>
+              </div>
+              <Link
+                href={`/recommend?q=${encodeURIComponent(recommendQuery)}`}
+                className="btn-primary inline-flex shrink-0 items-center justify-center px-6 py-3 text-sm font-semibold no-underline md:text-base"
+              >
+                Get personalized recommendations →
+              </Link>
+            </div>
+          </section>
+        ) : null}
 
         <ArticleNewsletter />
       </main>

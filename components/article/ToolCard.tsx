@@ -42,6 +42,7 @@ export function ToolCard({ index, review }: ToolCardProps) {
     scoreEase = 88,
     scoreFeatures = 85,
     scoreValue = 82,
+    conversionSummary,
   } = review;
 
   const resolvedAffiliate =
@@ -109,31 +110,59 @@ export function ToolCard({ index, review }: ToolCardProps) {
             <ProsCons pros={pros} cons={cons} />
           </div>
 
+          {conversionSummary ? (
+            <div className="mb-6 rounded-lg border border-[var(--border)] bg-[var(--surface)]/80 px-4 py-4 md:px-5 md:py-5">
+              <p className="mb-4 text-sm leading-relaxed text-secondary md:text-base">
+                {conversionSummary}
+              </p>
+              {resolvedAffiliate ? (
+                <AffiliateButton
+                  tool={resolvedAffiliate}
+                  label={`Get Started with ${name} →`}
+                  variant="primary"
+                  className="w-full !py-3 sm:w-auto"
+                  source="article"
+                  pos={`rev-${index + 1}`}
+                  linkTitle="Opens in a new tab"
+                />
+              ) : (
+                <Link
+                  href="/tools"
+                  className="btn-primary inline-flex w-full items-center justify-center !py-3 text-center text-sm font-semibold no-underline sm:w-auto"
+                >
+                  {`Get Started with ${name} →`}
+                </Link>
+              )}
+            </div>
+          ) : null}
+
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-            {resolvedAffiliate ? (
-              <AffiliateButton
-                tool={resolvedAffiliate}
-                label={cta}
-                variant="primary"
-                className="flex-1 !py-3"
-                source="article-review"
-                pos={`review-${index + 1}`}
-                linkTitle="Opens in a new tab"
-              />
-            ) : (
-              <Link
-                href="/tools"
-                className="btn-primary inline-flex flex-1 items-center justify-center !py-3 text-center text-sm font-semibold no-underline"
-              >
-                {cta}
-              </Link>
-            )}
+            {!conversionSummary ? (
+              resolvedAffiliate ? (
+                <AffiliateButton
+                  tool={resolvedAffiliate}
+                  label={cta}
+                  variant="primary"
+                  className="flex-1 !py-3"
+                  source="article"
+                  pos={`rev-${index + 1}`}
+                  linkTitle="Opens in a new tab"
+                />
+              ) : (
+                <Link
+                  href="/tools"
+                  className="btn-primary inline-flex flex-1 items-center justify-center !py-3 text-center text-sm font-semibold no-underline"
+                >
+                  {cta}
+                </Link>
+              )
+            ) : null}
             <CTAButton
-              href={`#review-${index + 1}`}
+              href="#article-comparison"
               variant="outline"
               className="flex-1 !py-3 !font-semibold"
             >
-              Read full review
+              Compare in table
             </CTAButton>
           </div>
         </div>

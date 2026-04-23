@@ -33,7 +33,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar-container">
         <Link href="/" className="navbar-logo">
-          ToolReviews
+          MyStackTools
         </Link>
 
         <nav className="navbar-links" aria-label="Main">
