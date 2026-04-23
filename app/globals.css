@@ -12,8 +12,8 @@
   --text-secondary: #5f6b7a;
 
   /* Brand */
-  --primary: #0058be;
-  --primary-hover: #004a9f;
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
 
   /* Borders */
   --border: #e5e9f2;
@@ -256,12 +256,12 @@ a.card:focus-visible {
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.2s ease;
-  box-shadow: 0 6px 18px rgba(0, 88, 190, 0.25);
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.25);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  box-shadow: 0 10px 28px rgba(0, 88, 190, 0.35);
+  box-shadow: 0 10px 28px rgba(29, 78, 216, 0.35);
 }
 
 .btn-secondary {
@@ -293,7 +293,7 @@ a.card:focus-visible {
 .input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.15);
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
 }
 
 /* ============================= */
@@ -325,7 +325,7 @@ a.card:focus-visible {
 /* BADGES */
 /* ============================= */
 .badge {
-  background: rgba(0, 88, 190, 0.1);
+  background: rgba(29, 78, 216, 0.1);
   color: var(--primary);
   padding: 4px 10px;
   border-radius: 999px;
@@ -438,7 +438,7 @@ a.link-accent:hover {
 .cta-section input[type="email"]:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.35);
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.35);
 }
 
 /* ============================= */
@@ -464,7 +464,7 @@ a.link-accent:hover {
 .hero-ai-glow {
   background: radial-gradient(
     closest-side,
-    rgba(0, 88, 190, 0.22) 0%,
+    rgba(29, 78, 216, 0.22) 0%,
     rgba(124, 92, 255, 0.08) 45%,
     transparent 70%
   );
@@ -476,7 +476,7 @@ a.link-accent:hover {
   border-radius: 9999px;
   border: 1px solid var(--border);
   background: var(--surface);
-  box-shadow: 0 10px 40px -10px rgba(0, 88, 190, 0.12);
+  box-shadow: 0 10px 40px -10px rgba(29, 78, 216, 0.12);
   transition: box-shadow 0.25s ease, border-color 0.2s ease;
   animation: ai-input-idle-pulse 4s ease-in-out infinite;
 }
@@ -489,23 +489,23 @@ a.link-accent:hover {
 .ai-input-container.hero-ai-input-focus:focus-within {
   border-color: var(--primary);
   box-shadow:
-    0 20px 50px -12px rgba(0, 88, 190, 0.18),
-    0 0 0 3px rgba(0, 88, 190, 0.1);
+    0 20px 50px -12px rgba(29, 78, 216, 0.18),
+    0 0 0 3px rgba(29, 78, 216, 0.1);
 }
 
 .ai-input-container:hover:not(:focus-within) {
   box-shadow:
-    0 14px 44px -12px rgba(0, 88, 190, 0.16),
-    0 0 28px rgba(0, 88, 190, 0.08);
+    0 14px 44px -12px rgba(29, 78, 216, 0.16),
+    0 0 28px rgba(29, 78, 216, 0.08);
 }
 
 @keyframes ai-input-idle-pulse {
   0%,
   100% {
-    box-shadow: 0 10px 36px -12px rgba(0, 88, 190, 0.08);
+    box-shadow: 0 10px 36px -12px rgba(29, 78, 216, 0.08);
   }
   50% {
-    box-shadow: 0 12px 44px -10px rgba(0, 88, 190, 0.14);
+    box-shadow: 0 12px 44px -10px rgba(29, 78, 216, 0.14);
   }
 }
 
@@ -561,7 +561,7 @@ a.link-accent:hover {
   flex-shrink: 0;
   padding: 0.35rem 0.7rem;
   border-radius: 9999px;
-  background: rgba(0, 88, 190, 0.08);
+  background: rgba(29, 78, 216, 0.08);
   color: var(--text-secondary);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -593,7 +593,7 @@ a.link-accent:hover {
 .hero-ai-submit {
   background: var(--primary);
   color: white;
-  box-shadow: 0 4px 18px rgba(0, 88, 190, 0.35);
+  box-shadow: 0 4px 18px rgba(29, 78, 216, 0.35);
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
@@ -604,8 +604,8 @@ a.link-accent:hover {
   background: var(--primary-hover);
   transform: scale(1.06);
   box-shadow:
-    0 0 0 4px rgba(0, 88, 190, 0.14),
-    0 10px 32px rgba(0, 88, 190, 0.45);
+    0 0 0 4px rgba(29, 78, 216, 0.14),
+    0 10px 32px rgba(29, 78, 216, 0.45);
 }
 
 .hero-ai-submit:active {

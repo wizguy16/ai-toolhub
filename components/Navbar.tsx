@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -32,8 +33,16 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link href="/" className="navbar-logo">
-          MyStackTools
+        <Link href="/" className="navbar-logo flex items-center gap-2">
+          <Image
+            src="/favicon.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="shrink-0 rounded-md"
+            aria-hidden
+          />
+          <span>MyStackTools</span>
         </Link>
 
         <nav className="navbar-links" aria-label="Main">

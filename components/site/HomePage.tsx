@@ -216,14 +216,14 @@ export function HomePage() {
                   title="Opens in a new tab"
                   className={
                     isFeatured
-                      ? "group relative z-[1] flex h-full min-h-0 scale-[1.02] flex-col rounded-[var(--radius)] border-2 border-[var(--primary)] bg-[var(--surface)] p-6 shadow-[0_14px_40px_rgba(0,88,190,0.2)] no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(0,88,190,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] max-md:scale-100"
+                      ? "group relative z-[1] flex h-full min-h-0 scale-[1.02] flex-col rounded-[var(--radius)] border-2 border-[var(--primary)] bg-[var(--surface)] p-6 shadow-[0_14px_40px_rgba(29,78,216,0.2)] no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(29,78,216,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] max-md:scale-100"
                       : "group flex h-full min-h-0 flex-col rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
                   }
                 >
                   <div className="flex min-h-0 flex-1 flex-col md:min-h-[300px]">
                     <div className="mb-4 flex items-center justify-between gap-3">
                       <div
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[rgba(0,88,190,0.1)] text-sm font-bold text-[var(--primary)]"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[rgba(29,78,216,0.1)] text-sm font-bold text-[var(--primary)]"
                         aria-hidden
                       >
                         {initial}
@@ -449,7 +449,7 @@ export function HomePage() {
             >
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
-            Data-driven reviews
+            No spam, no bias
           </div>
         </section>
 

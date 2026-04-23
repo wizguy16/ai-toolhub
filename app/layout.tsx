@@ -12,7 +12,15 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "MyStackTools",
-  description: "Find the best tools for your needs",
+  description: "Find the best tools for your stack",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

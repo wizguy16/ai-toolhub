@@ -22,16 +22,6 @@ function IconSubmitArrow() {
   );
 }
 
-function IconTrustUsers() {
-  return (
-    <svg className="h-4 w-4 shrink-0 text-[var(--text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
-
 function IconTrustUpdate() {
   return (
     <svg className="h-4 w-4 shrink-0 text-[var(--text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -135,10 +125,10 @@ export function HeroAiRecommend() {
           AI-powered search
         </span>
         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-primary md:text-5xl md:leading-[1.1]">
-          Find the Best Tools for Your Needs
+          Find the Best Tools for Your Stack
         </h1>
         <p className="mb-8 max-w-2xl text-base leading-relaxed text-secondary md:text-lg">
-          AI-powered recommendations to help you choose the right software in seconds.
+          AI-powered recommendations to help you choose the right tools for your stack in seconds.
         </p>
 
         <form
@@ -221,7 +211,7 @@ export function HeroAiRecommend() {
             aria-live={isSubmitting ? "polite" : undefined}
           >
             {isSubmitting
-              ? "Finding the best tools for you..."
+              ? "Finding the best tools for your stack..."
               : "Get personalized tool recommendations in seconds"}
           </p>
 
@@ -243,7 +233,9 @@ export function HeroAiRecommend() {
 
           <div className="hero-ai-trust mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)] sm:mt-7 sm:gap-x-8">
             <div className="flex items-center gap-2">
-              <IconTrustUsers />
+              <span aria-hidden className="text-[13px] leading-none">
+                ⭐
+              </span>
               Trusted by 10,000+ users
             </div>
             <div className="flex items-center gap-2">
@@ -252,7 +244,7 @@ export function HeroAiRecommend() {
             </div>
             <div className="flex items-center gap-2">
               <IconTrustVerified />
-              Data-driven reviews
+              No spam, no bias
             </div>
           </div>
 

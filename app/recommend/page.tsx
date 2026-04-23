@@ -101,13 +101,13 @@ export default async function RecommendPage({ searchParams }: Props) {
     <div className="min-h-[calc(100vh-8rem)] bg-[var(--background)] pb-16 pt-6 md:pt-10">
       {/* Hero */}
       <header className="mx-auto max-w-[1120px] px-6 pb-10 text-center md:pb-14">
-        <div className="mb-4 inline-flex items-center rounded-full bg-[rgba(0,88,190,0.1)] px-3 py-1">
+        <div className="mb-4 inline-flex items-center rounded-full bg-[rgba(29,78,216,0.1)] px-3 py-1">
           <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--primary)]">
             AI Recommendations
           </span>
         </div>
         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-[var(--text-primary)] md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
-          Best tools for your needs
+          Best tools for your stack
         </h1>
         <p className="mx-auto mb-5 max-w-2xl text-base text-[var(--text-secondary)] md:text-lg">
           {hasQuery ? (
@@ -130,7 +130,7 @@ export default async function RecommendPage({ searchParams }: Props) {
 
       {/* Primary recommendation */}
       <section className="mx-auto max-w-[1120px] px-6 pb-12 md:pb-16">
-        <div className="relative overflow-hidden rounded-2xl border border-[rgba(0,88,190,0.14)] bg-[var(--surface)] p-6 shadow-[0_8px_32px_-8px_rgba(15,23,42,0.1)] md:p-10 lg:p-12">
+        <div className="relative overflow-hidden rounded-2xl border border-[rgba(29,78,216,0.14)] bg-[var(--surface)] p-6 shadow-[0_8px_32px_-8px_rgba(15,23,42,0.1)] md:p-10 lg:p-12">
           <div className="absolute right-4 top-4 md:right-6 md:top-6">
             <span className="inline-block rounded-full bg-[var(--primary)] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
               Top Pick
@@ -175,7 +175,7 @@ export default async function RecommendPage({ searchParams }: Props) {
             </div>
 
             <div className="flex w-full flex-col items-center gap-4 border-t border-[var(--border)] pt-6 lg:w-auto lg:border-0 lg:pt-0 lg:pl-2">
-              <p className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-1.5 rounded-full border border-[rgba(0,88,190,0.2)] bg-[rgba(0,88,190,0.08)] px-4 py-2 text-center text-sm leading-snug lg:justify-start">
+              <p className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-1.5 rounded-full border border-[rgba(29,78,216,0.2)] bg-[rgba(29,78,216,0.08)] px-4 py-2 text-center text-sm leading-snug lg:justify-start">
                 <span className="shrink-0 text-xs font-bold uppercase tracking-wide text-[var(--primary)]">Best for:</span>
                 <span className="font-semibold text-[var(--text-primary)]">{primary.bestFor}</span>
               </p>
@@ -226,7 +226,7 @@ export default async function RecommendPage({ searchParams }: Props) {
                     </span>
                   </div>
                 </div>
-                <span className="shrink-0 rounded bg-[rgba(0,88,190,0.08)] px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-[var(--primary)]">
+                <span className="shrink-0 rounded bg-[rgba(29,78,216,0.08)] px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-[var(--primary)]">
                   {tool.badge}
                 </span>
               </div>
@@ -251,15 +251,15 @@ export default async function RecommendPage({ searchParams }: Props) {
       </section>
 
       {/* Trust */}
-      <section className="border-y border-[var(--border)] bg-[rgba(0,88,190,0.03)] py-12 md:py-14">
+      <section className="border-y border-[var(--border)] bg-[rgba(29,78,216,0.03)] py-12 md:py-14">
         <div className="mx-auto max-w-[1120px] px-6 text-center">
           <h3 className="mb-3 text-lg font-semibold text-[var(--text-primary)] md:text-xl">Why these recommendations?</h3>
           <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-[15px]">
-            We analyze reviews, features, and pricing to recommend the best tools for your needs.
+            We analyze reviews, features, and pricing to recommend the best tools for your stack.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             <div className="flex flex-col items-center opacity-90">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(0,88,190,0.1)] text-[var(--primary)]">
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(29,78,216,0.1)] text-[var(--primary)]">
                 <IconAnalytics className="h-5 w-5" />
               </div>
               <h4 className="mb-1 text-sm font-semibold text-[var(--text-primary)]">Data-driven</h4>
@@ -268,7 +268,7 @@ export default async function RecommendPage({ searchParams }: Props) {
               </p>
             </div>
             <div className="flex flex-col items-center opacity-90">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(0,88,190,0.1)] text-[var(--primary)]">
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(29,78,216,0.1)] text-[var(--primary)]">
                 <IconUpdate className="h-5 w-5" />
               </div>
               <h4 className="mb-1 text-sm font-semibold text-[var(--text-primary)]">Updated weekly</h4>
@@ -277,7 +277,7 @@ export default async function RecommendPage({ searchParams }: Props) {
               </p>
             </div>
             <div className="flex flex-col items-center opacity-90">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(0,88,190,0.1)] text-[var(--primary)]">
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(29,78,216,0.1)] text-[var(--primary)]">
                 <IconUsers className="h-5 w-5" />
               </div>
               <h4 className="mb-1 text-sm font-semibold text-[var(--text-primary)]">Trusted by users</h4>

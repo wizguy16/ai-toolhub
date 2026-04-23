@@ -69,7 +69,7 @@ export function ToolCard({ index, review }: ToolCardProps) {
             ) : (
               <>
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--text-primary)] via-[#152a45] to-[var(--text-primary)]" />
-                <div className="absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_30%_20%,rgba(0,88,190,0.45),transparent_50%),radial-gradient(circle_at_80%_60%,rgba(0,88,190,0.2),transparent_45%)]" />
+                <div className="absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_30%_20%,rgba(29,78,216,0.45),transparent_50%),radial-gradient(circle_at_80%_60%,rgba(29,78,216,0.2),transparent_45%)]" />
                 <div className="absolute inset-x-4 bottom-4 top-1/3 rounded-md border border-[var(--surface)]/20 bg-[var(--text-primary)]/55 backdrop-blur-sm" />
               </>
             )}
